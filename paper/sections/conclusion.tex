@@ -1,0 +1,46 @@
+\section{Proof of the computation theorem and quantum extensions}\label{sec:proofs}
+\begin{proof}[Proof of Theorem~\ref{thm:main}]
+Choose the processor of Lemma~\ref{lem:processor} and the slot inventory, code and budgets of \eqref{eq:budgets}--\eqref{eq:codemargin}. Use the closed tape-end rule for every private call, the finite native implementation and the terminating timetable search of Lemma~\ref{lem:timetable}. Keep the unchanged initialized never-halting structural transition, with the same scalar serialization and old/new one-way banks. Include the isolated input-description lane as an additional idle noisy factor. The complete finite elementary word fixes $Q_{\rm site},D_{\rm layer},R$, all physical stencil dimensions, and hence the strictly positive common $p_0$ in \eqref{eq:threshold}.
+
+Given $n,D,h$ and $C$, calculate $B,V,k,t,m_c,L$ by \eqref{eq:interpretertime}, \eqref{eq:rankchoice} and \eqref{eq:chart}. Initialize the exact structural row on the chart, the operational stream and known head/work values by repeated classical substitution, and the physical pulse bits of Lemma~\ref{lem:loading}. Every designated quantum register starts in zero. Put the circuit and integer request in the classical description lane as in Lemma~\ref{lem:finite}. These are product basis preparations computable in polynomial time.
+
+For $p\le p_0$, Lemmas~\ref{lem:clockinterface} and~\ref{lem:probability} bound the flag-defined bad top event by \eqref{eq:coneerror}. Off this event, Lemmas~\ref{lem:loading} and~\ref{lem:compiled} give the intended top channel at every needed tick, and Lemma~\ref{lem:processor} gives $C\ket0^{\otimes n}$ at the declared stationary outputs. The actual ring has this line output marginal by the full-horizon cone coupling of Lemma~\ref{lem:finite}. Measure every physical qubit and apply the fixed total CSS rule of Lemma~\ref{lem:readout} bottom-up on the selected blocks, ignoring every other measured bit. Its full-space effect identity gives the joint output law, including any bad intermediate blocks. The decoder uses $n,D,h$ and the constant geometry only. Mixing erroneous flag histories costs at most $2^{-h}\le\varepsilon$. Lemma~\ref{lem:finite} gives polynomial computation of the maps and \eqref{eq:resource} with the explicit $A$ of \eqref{eq:A}. Nothing depends on the actual $p$.
+\end{proof}
+
+\begin{maintheorem}[Quantum inputs and endpoints]\label{thm:quantum}
+Use the hardware, threshold $p_0$, noise, request $h$, chart and stopping time $t$ of Theorem~\ref{thm:main}, for the same $n,D,C,\varepsilon$. Assume noiseless endpoints: in place of the product loading of the designated quantum slots, a noiseless recursive encoder prepares them, and after the $t$ noisy periods a noiseless recursive recovery is applied. For every $0<p\le p_0$ and every $n$-qubit input $\rho_{AR}$ with arbitrary reference $R$, placed on the top stationary data slots before encoding, the recovered output satisfies
+\begin{equation}\label{eq:quantumerror}
+ \frac12\left\|\rho^{\rm out}_{AR}
+ -(C\otimes I_R)\rho_{AR}(C^\dagger\otimes I_R)\right\|_1
+ \le2^{-h}\le\varepsilon.
+\end{equation}
+The resource bound \eqref{eq:resource} holds unchanged. The endpoint encoder and recovery are independent of $p$. The recovery is a quantum operation and need not be a classical measurement decoder.
+\end{maintheorem}
+\begin{proof}
+Place $\rho_{AR}$ on the top stationary data slots $1,\ldots,n$ and prescribe the same top program, head, ports and workspace as before. Apply the exact noiseless CSS encoder recursively to every designated slot, including the known program and head, with fresh child workspace. Embed this entire encoded input and the structural row in the chart of Lemma~\ref{lem:finite}. Initialize every physical pulse bit to zero. Its clean action is now identity even at the first period. Faults at later resets, storage or reads still have the physical direct certificates, so no threshold or stencil is removed.
+
+At every rank the boundary is an ordinary quantum-correctable input. Use the quantum clause of Lemmas~\ref{lem:teleport} and~\ref{lem:loading}, rather than their classical-basis clause. Their Bell calculation is an operator identity with a reference, and the joint proof of Lemma~\ref{lem:compiled} preserves that reference through each good complete operation and each recursive cut. Apply the fixed unrestricted recursive recovery at time $t$ to the $n$ data blocks and take their marginal. On the good top event, this gives exactly the intended joint output by Lemma~\ref{lem:processor}.
+
+The good event depends only on primitive flags and is independent of $\rho_{AR}$. Its complement has probability at most $2^{-h}$ by the same union bound and line-to-ring coupling. The unconditional recovered state is the ideal state with weight at least $1-2^{-h}$ plus arbitrary bad-history states. Trace distance between states is at most one and is convex, giving \eqref{eq:quantumerror}. The time, chart, rank and fixed code are unchanged; the same $A$ bounds the resources. This proves the reference-entangled input/output assertion.
+\end{proof}
+
+\begin{maintheorem}[Independent whole-site replacement]\label{thm:site}
+Theorems~\ref{thm:main} and~\ref{thm:quantum} hold on exactly the same hardware under independent whole-site replacement \eqref{eq:site-noise}, using the common $p_0$ of \eqref{eq:threshold}, the same $A$, and the same preparation, timing and endpoint maps.
+\end{maintheorem}
+\begin{proof}
+Use one independent Bernoulli key per site and elementary layer. Name every affected stencil origin, including both incident exchange origins when required. A hit discards every incoming factor at that site and prepares a product maximally mixed register. Realize its classical bits by private independent fair bits. Conditional on the hit set, the retained banks still evolve by a classical stochastic rule with one-way copies. The product output of replacement prevents a quantum input from feeding back into their probabilities. Quantum and classical errors at the same hit can be correlated; the joint named-error model of Lemma~\ref{lem:compiled} explicitly permits this.
+
+We verify the primitive-key witness bound instead of replacing the wire rate by an unjustified native iid rate. The deterministic mesh implication is the same classical Lemma~4.2 used in Section~\ref{sec:inputs}. In a depth-$j-1$ witness tree there are $2^{j-1}$ leaves. Restrict each leaf to its doubled rank-zero box intersected with every ancestor and the initial test. Its nonempty region has at most $4w_R^2$ native points. Distinct leaves have disjoint regions because they separate in disjoint sibling boxes. Join two leaves if the unions of their site-key stencils intersect. A neighboring region supplies a distinct lattice point within the first leaf's box enlarged by $2r_x,2r_t$. There are fewer than $J_R$ such points, so the conflict degree is at most $J_R-1$. A deterministic greedy choice retains at least $2^{j-1}/J_R$ leaves with disjoint site-key supports.
+
+A retained leaf requires some hit among at most $A_R=4w_R^2s_R$ distinct site keys and has probability at most $A_Rp$. Those retained leaf events are independent. There are at most $D_R^{2^{j-1}-1}$ trees per root and at most $N_R$ root boxes. For $A_Rp\le1$ this gives
+\[
+ \Pr(\text{test fails})\le
+ N_RD_R^{2^{j-1}-1}(A_Rp)^{2^{j-1}/J_R}
+ \le[C_Rp^{1/J_R}]^{2^{j-1}},
+\]
+precisely \eqref{eq:witness}. All constants were taken as maxima for both primitive-key conventions, and $p_0\le e_{R0}$ ensures the displayed hypothesis. Removing negative-time keys only decreases the increasing events.
+
+Every other independence assertion in Lemma~\ref{lem:probability} is between disjoint complete spatial and temporal key supports after truncation. Such supports also have disjoint site keys. The same recurrence, constants and rank decay therefore follow. A direct test costs at most $s_Hp$ under the site-key convention by its definition. Lemma~\ref{lem:clockinterface} still holds: off hit stencils the same total classical transition is exact, malformed/raw reads have the same tests, and the date-zero join is unchanged. The common threshold pays for these bounds without altering a gate.
+
+Conditional hits can act jointly on compiler and user factors, but their expansion with common environment coefficients is exactly the arbitrary joint fault expansion used in deletion. The spectator case adds no clean contact between them. Thus the same good-parent budget, loading, complete-operation margins, total measurement effects and full-horizon chart all apply. The good-event probability is input independent and at least $1-2^{-h}$. Its classical output mixture proves Theorem~\ref{thm:main} under this noise, and its recovered joint quantum mixture proves Theorem~\ref{thm:quantum} in trace distance. This proves the assertion with a single hardware choice and a single positive threshold.
+\end{proof}

@@ -1,0 +1,70 @@
+\section{Finite rings, preparation cost and precision}\label{sec:finite}
+\begin{lemma}[A finite chart for the whole computation]\label{lem:finite}
+For $n\ge1,D\ge0$ and the common sufficient request $h$, let $V$ be \eqref{eq:interpretertime} and set
+\begin{equation}\label{eq:rankchoice}
+\begin{gathered}
+ W=(V+1)(n+2V+9),\quad H_{\rm req}=h+\lceil\log_2W\rceil+1,\\
+ k=\min\{j\ge1:\lambda^j\ge H_{\rm req}\}.
+\end{gathered}
+\end{equation}
+Let $R\ge1$ be one plus the sum over elementary layers of the greatest pairwise site distance within a gate of that layer, taking zero for an on-site layer and including controller, pulse and user gates. Put
+\begin{equation}\label{eq:chart}
+\begin{gathered}
+ t=VT^k,\qquad
+ m_c=n+2V+10+\lceil Rt/P^k\rceil,\\
+ L=(2m_c+1)P^k+2(h+1).
+\end{gathered}
+\end{equation}
+There is a product initialization on this ring giving total variation error at most $2^{-h}$. It and the decoder are computable in polynomial time in their finite input and output sizes. Their geometry, selected output slots and time depend only on $n,D,h$. With
+\begin{equation}\label{eq:A}
+ g=\lceil\log_\lambda T\rceil,\qquad
+ A=\left\lceil(300+150R)T25^g\right\rceil+g+10,
+\end{equation}
+the resource bound \eqref{eq:resource} holds. The same bad-event bound is valid in trace distance after quantum recovery for a recursively encoded input with reference.
+\end{lemma}
+\begin{proof}
+On every top date $0,\ldots,V$, use the interval $[-V-3,n+V+3]$. It contains the full ideal top past cone for stationary output sites $1,\ldots,n$, including origins of exchanged ports and all needed initial stream positions. There are at most $W$ queries, with date $V$ included for safety. The noise after the last elementary layer of physical period $VT^k-1$ belongs to that period's direct test, hence to top date $V-1$; there is no untested terminal noise layer. Lemma~\ref{lem:probability} and a union bound give failure probability at most
+\begin{equation}\label{eq:coneerror}
+ Wa2^{-\lambda^k}\le2^{-h}.
+\end{equation}
+On the complementary event Lemma~\ref{lem:compiled} implements the ideal top channel throughout the cone, Lemma~\ref{lem:loading} supplies its basis input, and Lemma~\ref{lem:readout} gives the full output law. This is conditional on primitive flag histories, not on postselected logical measurement outcomes. Conditional on marks, the allowed errors are arbitrary joint channels and the good-gadget statements are full channel statements. The good event is independent of program and quantum input. Mixing the bad histories with weight at most \eqref{eq:coneerror} therefore costs at most that weight in total variation, or in trace distance with a reference after recovery.
+
+A real physical dependency path moves at most $R$ sites per period, by its definition as a sum over elementary layers. Embed complete rank-$k$ homes with indices $-m_c,\ldots,m_c$ consecutively in the ring starting at physical zero, translating line coordinates by $m_cP^k$. The output blocks lie in this interval at distance at least $Rt$ from either edge. Every actual ancestor of their coordinate measurements through all $t$ periods, including autonomous banks, private control storage and physical pulses, is therefore in the injective chart. Initialize those complete homes from the line row at zero. This is the precise cone hypothesis of~\cite[Lemma~12.6]{DMMemory2026}; no clean full-ring hierarchy is asserted.
+
+Outside the chart put fixed filler. Reserve an isolated classical lane, idle and noisy at every layer, to record the sufficient request in a unary suffix of length $h+1$; the extra $2(h+1)$ sites in \eqref{eq:chart} provide this space. In the same ignored lane within the chart record the input circuit itself, with its layer boundaries. Use $n$ entries per layer, padding by idle, two opcode bits and three $\lceil\log_2(n+1)\rceil$-bit operand fields. Its length is at most
+\[
+ nD\bigl(2+3\lceil\log_2(n+1)\rceil\bigr)
+ \le nD(2+3n)\le V.
+\]
+Here $\lceil\log_2(n+1)\rceil\le n$ and $2+3n\le2(7n+8)$ for $n\ge1$. The chart has at least $V$ sites, separate from the request suffix. Thus the initial basis word describes the original circuit as well as its operational stream. The ignored record is noisy from time zero and never used for later computation. Its idle wires belong to the completed physical inventory. Only the encoded operational stream is used by the processor. The physical circuit is fixed independently of the length of this record.
+
+Couple ring primitive keys in the actual output past cone to a single independent line extension with matching initial row there. Induction over elementary gates gives identical output marginals. Analyze the line on finite portions: follow the finitely many rank reductions and enlarge until the descendant covers used are included. High-rank certificates may examine more keys in the independent line extension; they bound an already coupled output and introduce no extra ring randomness. The same ring key is never assigned two independent lifts. This pays the full physical horizon $VT^k$, with many top homes and many top ticks; it does not iterate a one-tick memory-fidelity theorem.
+
+We give the initialization cost rather than only invoking computability. For a physical coordinate $|x|\le L$, the aligned boundary algorithm repeatedly takes $\lfloor x/P\rfloor$, reaches $0$ or $-1$, includes the next endpoint digit and substitutes requested child symbols back down. There are at most $\lceil\log_P(L+1)\rceil+2$ levels. Endpoint independence concerns the whole encoded cell. A level-$j$ word has $2^j$ times the fixed width $\ell_0$, and storing entire words over the chain costs at most $8\ell_0(L+1)$ bits. There are a fixed number of word fields and fixed scalar formats. Defaults, address, age and selected scalar, half-word or padding are therefore computed by polynomial-time bit copies and integer division.
+
+The family literal is also needed. At physical rank it is the fixed never-halting machine's initial configuration. Each promotion extends by a blank half and performs one bounded true tape step using masks, one-bit shifts and Boolean operations. For rank $r\le\lceil\log_P(L+1)\rceil+2$, compute exactly those $r$ promotion steps on width $2^r\ell_0$. This costs polynomial time in $L$. No negative history is simulated or sampled.
+
+For quantum basis loading, recursively put the $N$ identical copies at the designated coordinates and fixed child-work defaults. The tree of homes down to the physical row has at most $2L$ nodes because $P\ge4$, with constant work per native slot and logarithmic-length coordinate arithmetic. Computing the stream and physical pulse values is polynomial as well. For decoding, all single-block tables are fixed constants and bottom-up measured-word processing takes at most the same number of home visits. The decoder ignores every gate of $C$, the operational stream and the ignored record. It reads only the geometry and output data slots determined by $n,D,h$. None of these algorithms uses $p$.
+
+To check the single displayed polynomial, put $X=\max(1,n+D)+\log_2(1/\varepsilon)$, so $X\ge1$ and the maximum is $n+D$ for positive width. For every admitted precision input, $h\le X+1$. From \eqref{eq:interpretertime},
+\[
+ B\le30X^3,\quad V\le60X^3,\quad W\le61\cdot130X^6.
+\]
+Since $\log_2(61\cdot130)<13$ and $\log_2X\le X$,
+\[
+ \lceil\log_2W\rceil\le6X+14,\qquad
+ H_{\rm req}\le7X+16\le23X\le25X.
+\]
+The minimal rank in \eqref{eq:rankchoice} gives $T^k\le T H_{\rm req}^g$ and $P^k\le T^k$. Hence
+\[
+ t\le60T25^gX^{3+g}.
+\]
+The ceiling in $m_c$ gives
+\[
+\begin{split}
+ L&\le(2n+4V+23)P^k+2Rt+2(h+1)\\
+  &\le(270+120R)T25^gX^{3+g}+6X,
+\end{split}
+\]
+where $2(h+1)\le2X+4\le6X$. The integer $A$ in \eqref{eq:A} dominates these coefficients and exponents, proving \eqref{eq:resource}. A period has the fixed $D_{\rm layer}$ elementary layers, so elementary-layer time is at most $D_{\rm layer}AX^A$ if that unit is desired. The site count corresponds to $Q_{\rm site}L$ qubits, with fixed finite $Q_{\rm site}$.
+\end{proof}

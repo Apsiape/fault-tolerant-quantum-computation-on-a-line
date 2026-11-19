@@ -1,0 +1,11 @@
+cff-version: 1.2.0
+message: |-
+  Preprint. Version 1.0.0. Text: CC BY 4.0.
+type: software
+title: "Fault-tolerant quantum computation on a line from one fixed translation-invariant rule"
+version: 1.0.0
+date-released: '2026-11-19'
+license: CC-BY-4.0
+authors: [{"family-names": "Douglas", "given-names": "Seth", "orcid": "https://orcid.org/0009-0007-4708-3252"}, {"family-names": "Mghirbi", "given-names": "Nidhal", "orcid": "https://orcid.org/0009-0005-6534-1118"}]
+keywords: ["quantum fault tolerance", "translation-invariant quantum circuits", "one-dimensional quantum computation", "noisy classical control", "self-simulating cellular automata", "quantum cellular automata"]
+abstract: "One fixed, finite-range, translation-invariant, time-periodic quantum circuit on a ring performs any width-n, depth-D Toffoli/Hadamard circuit from a computable product preparation, with space and time at most A(n+D+log2(1/ε))^A and output error at most ε. The register per site and A are fixed. Independent depolarizing noise acts on every wire after every elementary layer, including every classical control wire, at any rate below a fixed positive threshold. The target circuit enters only through classical basis registers; all quantum registers start in zero. A deterministic classical decoder, depending only on n,D and a sufficient integer precision request, reads the final computational-basis measurement. A serial quantum processor is embedded in an initialized one-dimensional classical self-simulating hierarchy. Coordinatewise private teleportation corrections load repeated classical words without assuming that they are quantum codewords, and a closed tape-end rule confines faulty instruction decisions to one contact. With noiseless recursive encoding and recovery at the endpoints, the same circuit preserves arbitrary input entanglement with a reference. Independent whole-site replacement has a common positive threshold on the same hardware. This is a one-dimensional analogue of the two-dimensional construction of Dünnweber, Styliaris and Trivedi, following their suggested route through Gács's one-dimensional hierarchy. Our overhead is polynomial rather than polylogarithmic. The hierarchy is initialized and synchronous; the constants are extremely large."

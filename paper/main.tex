@@ -1,0 +1,86 @@
+\pdfoutput=1
+\providecommand{\DoNotLoadEpstopdf}{}
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern,amsmath,amssymb,amsthm,mathtools}
+\usepackage[margin=1.08in]{geometry}
+\usepackage{booktabs,array,enumitem,microtype,xcolor,needspace,upquote,multicol}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,positioning,calc}
+\usepackage[hypcap=false]{caption}
+\usepackage[unicode,colorlinks=true,linkcolor=blue!45!black,citecolor=blue!45!black,urlcolor=blue!45!black]{hyperref}
+\setlength{\emergencystretch}{2em}
+\setlist{nosep}
+\setcounter{tocdepth}{1}
+\makeatletter
+\renewcommand*\@pnumwidth{2em}
+\@clubpenalty=10000
+\renewcommand*\l@section[2]{\addvspace{.15em}\@dottedtocline{1}{0pt}{2.4em}{\bfseries #1}{\bfseries #2}}
+\makeatother
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{maintheorem}{Theorem}
+\renewcommand{\themaintheorem}{\Alph{maintheorem}}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+\numberwithin{equation}{section}
+\DeclareMathOperator{\supp}{supp}
+\DeclareMathOperator{\Tr}{Tr}
+\DeclareMathOperator{\dist}{dist}
+\newcommand{\Z}{\mathbb Z}
+\newcommand{\N}{\mathbb N}
+\newcommand{\R}{\mathbb R}
+\newcommand{\eps}{\varepsilon}
+\newcommand{\cE}{\mathcal E}
+\newcommand{\cD}{\mathcal D}
+\newcommand{\one}{\mathbf 1}
+\colorlet{rxaccent}{orange!80!black}
+\setlist[enumerate]{label=\textup{(\roman*)},leftmargin=2em,itemsep=3pt,topsep=4pt}
+\setlist[itemize]{leftmargin=1.7em,itemsep=2pt,topsep=4pt}
+\allowdisplaybreaks[2]
+\raggedbottom
+\clubpenalty=10000
+\widowpenalty=10000
+\displaywidowpenalty=10000
+\hyphenation{Lemma Lemmas Theorem Theorems Proposition Propositions Definition Definitions}
+\newcommand{\ket}[1]{\lvert #1\rangle}
+\newcommand{\bra}[1]{\langle #1\rvert}
+\newcommand{\cC}{\mathcal C}
+\newcommand{\cF}{\mathcal F}
+\newcommand{\cR}{\mathcal R}
+\newcommand{\Id}{\operatorname{Id}}
+\newcommand{\EC}{\operatorname{EC}}
+\newcommand{\LOAD}{\operatorname{LOAD}}
+\newcommand{\TV}{\operatorname{TV}}
+\newcommand{\wt}{\operatorname{wt}}
+\newcommand{\SWAP}{\operatorname{SWAP}}
+\newcommand{\CNOT}{\operatorname{CNOT}}
+\newcommand{\Toffoli}{\operatorname{Toffoli}}
+\newcommand{\CZ}{\operatorname{CZ}}
+\hypersetup{pdftitle={Fault-tolerant quantum computation on a line from one fixed translation-invariant rule},pdfauthor={Seth Douglas and Nidhal Mghirbi},pdfsubject={One-dimensional noisy quantum computation}}
+\title{Fault-tolerant quantum computation on a line\\from one fixed translation-invariant rule\\[.65em]\resizebox{\textwidth}{!}{\normalfont Claude Opus 5.5, GPT-6.1 Sol, GPT-6.2 Sol and GPT-6.2 Astra assisted with this work; the authors take responsibility for every claim.}}
+\author{Seth Douglas\qquad Nidhal Mghirbi}
+\date{Version 1.0.0, November 2026}
+\begin{document}
+\maketitle
+\begin{abstract}
+One fixed, finite-range, translation-invariant, time-periodic quantum circuit on a ring performs any width-$n$, depth-$D$ Toffoli/Hadamard circuit from a computable product preparation, with space and time at most $A(n+D+\log_2(1/\varepsilon))^A$ and output error at most $\varepsilon$. The register per site and $A$ are fixed. Independent depolarizing noise acts on every wire after every elementary layer, including every classical control wire, at any rate below a fixed positive threshold. The target circuit enters only through classical basis registers; all quantum registers start in zero. A deterministic classical decoder, depending only on $n,D$ and a sufficient integer precision request, reads the final computational-basis measurement. A serial quantum processor is embedded in an initialized one-dimensional classical self-simulating hierarchy. Coordinatewise private teleportation corrections load repeated classical words without assuming that they are quantum codewords, and a closed tape-end rule confines faulty instruction decisions to one contact. With noiseless recursive encoding and recovery at the endpoints, the same circuit preserves arbitrary input entanglement with a reference. Independent whole-site replacement has a common positive threshold on the same hardware. This is a one-dimensional analogue of the two-dimensional construction of D\"unnweber, Styliaris and Trivedi, following their suggested route through G\'acs's one-dimensional hierarchy. Our overhead is polynomial rather than polylogarithmic. The hierarchy is initialized and synchronous; the constants are extremely large.
+\end{abstract}
+\begin{center}\footnotesize Published inputs: classical hierarchy, \href{https://doi.org/10.5281/zenodo.24352353}{doi:10.5281/zenodo.24352353}; quantum memory, \href{https://doi.org/10.5281/zenodo.24354983}{doi:10.5281/zenodo.24354983}.\end{center}
+\tableofcontents
+\input{sections/introduction}
+\input{sections/model-inputs}
+\input{sections/boundary}
+\input{sections/processor}
+\input{sections/compiler}
+\input{sections/probability}
+\input{sections/finite}
+\input{sections/conclusion}
+\input{sections/discussion}
+\input{references}
+\end{document}

@@ -1,0 +1,82 @@
+\section{Primitive-key probability bounds}\label{sec:probability}
+\begin{lemma}[Structural interface for the completed period]\label{lem:clockinterface}
+For the completed physical word of Lemma~\ref{lem:compiled}, the structural lane has the four conclusions of~\cite[Lemma~12.4]{DMMemory2026}: its decoded positive history is a native history off a finite-stencil flag field; every incorrect raw control read has a protected-test certificate; its dephased marginal is a one-way autonomous classical chain; and the initialized history joins the clean negative tower with no negative-time flags. The stencil dimensions in \eqref{eq:Rconstants} and \eqref{eq:clockconstants} are enumerated on this completed word.
+\end{lemma}
+\begin{proof}
+Fix the native finite alphabet $\mathrm{Alph}_R$, its injective canonical bit representation $\operatorname{enc}_R$, and the total parser $\operatorname{dec}_R$ mapping unused strings to the dead symbol. The Boolean evaluator on arbitrary incoming banks is exactly
+\[
+ \operatorname{enc}_R\!\left(f_R\bigl(\operatorname{dec}_R(w_-),
+ \operatorname{dec}_R(w_0),\operatorname{dec}_R(w_+)\bigr)\right),
+\]
+with total defaults on unused intermediate Boolean strings. Evaluate on private initialized targets with distinct old/new banks and separate one-way destination copies. The compiler, $U$, Bell records and pulses do not target an autonomous bank or its private evaluator targets. Their added layers are waits for this classical computation. In the absence of flags in its complete implementing stencil, the evaluator gives the total native transition on legal or malformed inputs.
+
+Enumerate that stencil on the completed elementary word: each incoming bank's storage from its preceding completed write through its last relevant read, one-way fanout copies and their storage, every parser/evaluator gate, old/new transfers, all resets and noise immediately after them, private targets until read, and each raw source bit through its actual quantum-control read. Include incoming period $t-1$ and outgoing period $t$ to cover both the transition into native date $t$ and all reads at that date. At zero keep only nonnegative elementary keys. All displacements and the layer count are fixed, so its maximal key count $s_R$ and integer radii $r_x,r_t$ are finite computable constants. Added layers only add the required wait keys; no stencil from a shorter old period is reused without them. Any decoded disagreement from the native transition thus requires a stencil flag. Corruption into a different legal word and into a non-codeword are both covered.
+
+The physical processor reads exactly old age, address, retained low bit and required tags, each through a private copy. $U$, pulse bits and Bell records read no structural bank. A wrong canonical native symbol has a protected test by~\cite[Lemma~12.5]{DMMemory2026}, whose initialized, homogeneous, ordinary unhalted, serialization and protection hypotheses were checked in Section~\ref{sec:inputs}. If instead a raw bank or copy is noncanonical, or a raw bit is wrong even though the parser agrees, the complete write/storage/read stencil has a flag. The prescribed rank-one protected test containing that point then fails $0$-sparsity. Retain this fixed-offset raw-read test explicitly among the $N_{\rm clk}$ tests. These alternatives exhaust every raw read; the parser is not presumed to govern malformed raw quantum controls.
+
+At each period boundary the retained banks are dephased, with joint state $\sum_a\ket a\bra a\otimes\rho_a$. Their truth-table updates are basis permutations or total classical channels. A bank is only a source for a one-way control into private work. Tracing targets after a controlled unitary or a copy-and-discard does not change the bank probabilities, even with arbitrary $\rho_a$. A flagged depolarization of a basis-valued bit is a replacement by a private independent fair bit. Induction over elementary layers therefore gives exactly an autonomous classical stochastic chain. No quantum factor, private result, Bell record or pulse writes back to its banks. The current construction has no terminal erase acting on them. Private read copies are consumed by disposable work and their faults are in the same read/dispatch or direct stencils.
+
+The prepared structural row is the canonical representation of the exact aligned boundary of~\cite[Lemma~6.4]{DMNoise1D2026}. Glue its clean negative tower to the actual decoded nonnegative history. The row agrees at the join, negative updates are exact, and every positive native-transition failure has the stencil certificate just proved. This is the data-history domain of classical Proposition~5.3. No negative physical innovation is introduced. Thus all four clauses are proved for the present word, and the dependent-key and projection lemmas apply with its newly enumerated stencil constants.
+\end{proof}
+
+For each physical site/tick take a direct test consisting of all primitive keys that can spoil its instruction or incident ports during that tick, including inputs since immediately preceding resets, old control reads and the two-period pulse lifetime. Name both origins of a faulty exchange. A direct test without a flag certifies the intended action on the actual incoming quantum state when the structural reads are correct. Let $s_H$ be its maximal key count and let $r_H\ge1$ bound its spatial and macrodate radius. Displacement/copy gates of the structural lane have the full stencils of Lemma~\ref{lem:clockinterface}. In particular the noise following an elementary layer is assigned to that layer's period, including the last layer before readout.
+
+Fix the following constants after this physical enumeration, taking maxima of key counts and radii for the wire and whole-site conventions:
+\begin{equation}\label{eq:probconstants}
+\begin{gathered}
+ N_t=N_{\rm clk}+1,\quad C_* =\max(1,C_{\rm clk},r_H),\\
+ A_p=A_0^2,\quad a=\frac1{2A_p},\quad D_*=1058N_tPT,\\
+ \lambda=1+\frac1{2T},\qquad \rho=2^{\log_T P},\\
+ M=\max\left\{\left\lceil\log_2\frac{4N_t}{a}\right\rceil,
+ 2C_*\left[\left\lceil\log_2\frac{2D_*}{a}\right\rceil
+ +T\lceil\log_2(PT)\rceil+2\right]\right\}.
+\end{gathered}
+\end{equation}
+All radii are rounded upward to integers. The common threshold is
+\begin{equation}\label{eq:threshold}
+ p_0=\min\left\{\frac12,\frac{2^{-M}}{\max(1,s_H)},\ e_{R0},\
+ A_R^{-1}\left(\frac{2^{-M}}{N_RD_R}\right)^{J_R}\right\}>0.
+\end{equation}
+The last term already implies the $e_{R0}$ condition because $2^{-M}\le1/2$; it is displayed to retain the witness hypothesis explicitly. All constants depend only on the completed fixed circuit. They are not chosen anew at each rank.
+
+\begin{lemma}[Decay of named-site probabilities]\label{lem:probability}
+Initialize the structural lane on the line as above. Mark a base query if its direct test or one of its protected structural tests fails, and use \eqref{eq:naming} at higher ranks. For every $0\le p\le p_0$, if $u_i$ is the supremum probability of a named rank-$i$ query, then
+\begin{equation}\label{eq:rankdecay}
+ u_i\le a\,2^{-\lambda^i}\qquad(i\ge0).
+\end{equation}
+The marking event is a function only of primitive flags, independent of the circuit program and quantum input.
+\end{lemma}
+\begin{proof}
+Independent elementary wire flags and private fair bits for classical replacements realize \eqref{eq:wire-noise} exactly. Lemma~\ref{lem:clockinterface} checks every hypothesis of the independent-key and initialized structural projection imports on the present word, with the unchanged literal, total parser, one-way banks and date-zero row. Negative native flags are zero. Include all keys since a preceding write through its actual read, rather than treating a stored classical bit as freshly noisy only when read. Every wrong read is therefore certified. Tests depend on flags alone.
+
+By \eqref{eq:threshold}, direct tests have probability at most $2^{-M}$. By \eqref{eq:witness} and the last threshold term, a rank-$j$ structural test has probability at most $2^{-M2^{j-1}}$. At each query there are at most $N_t$ tests per rank $j\ge1$, putting direct tests at rank one, with full primitive supports inside radius $C_*T^j$ since $T\ge P$. A query can be marked by remote tests, but the certification is pointwise: one need not paint a failed test's entire rectangle into the base error set. Extend negative time by empty physical-error tests for geometric counting. Summing the doubly decreasing tail gives
+\begin{equation}\label{eq:recurrence}
+\begin{split}
+ u_0&\le2N_t2^{-M},\\
+ u_{i+1}&\le A_pu_i^2+
+ D_*(PT)^i2^{-M\rho^i/(2C_*)}.
+\end{split}
+\end{equation}
+We prove the second inequality explicitly, as native marks themselves are dependent.
+
+A named parent has two named children whose complete descendant footprints have gap at least $8P^i$ by Lemma~\ref{lem:geometry}. There are at most $A_p$ ordered pairs. For each child delete all base tests of ranks $j$ with $C_*T^j>P^i$, and recompute its increasing naming event from the remaining tests. Its probability is at most $u_i$ by monotonicity. Its primitive keys now lie within $P^i$ of its original query footprint. The two truncated events have disjoint complete key supports by the footprint gap, hence are independent. Overlaps among smaller tests within either one do not matter. This gives the square term.
+
+The parent footprint has at most
+\[
+ (20P^{i+1}+3)(20T^{i+1}+3)\le529(PT)^{i+1}
+\]
+base query points. If a child was named before truncation but not after, some removed base test in that footprint failed. At the least deleted rank,
+\[
+ 2^{j-1}\ge\tfrac12(P^i/C_*)^{\log_T2}
+ \ge\frac{\rho^i}{2C_*}.
+\]
+The deleted-rank tail is at most twice its first probability, since $M\ge1$ and exponents double. Union over base points and at most $N_t$ tests of each rank gives exactly the second term of \eqref{eq:recurrence}, with $D_*=2\cdot529N_tPT$. No independent copy of a repeated primitive key is used.
+
+We verify the induction with the displayed constants. For $T\ge P\ge4$, using natural logarithms for this comparison,
+\[
+ \rho=\exp(\log2\,\log P/\log T)\ge1+1/T,
+\]
+because $T\log2\,\log4\ge\log T$. Hence $\rho^i\ge1+i/T$ and $\rho^i\ge\lambda^i$. In the tail exponent, the three summands in the square brackets of $M/(2C_*)$ pay respectively for $\log_2(2D_*/a)$, for $i\log_2(PT)$, and for $\lambda^{i+1}$: use $T\rho^i\ge i$ and $2\rho^i\ge\lambda^{i+1}$ since $\lambda\le2$. Thus the tail term is at most $(a/2)2^{-\lambda^{i+1}}$.
+
+If $u_i\le a2^{-\lambda^i}$, the square term is at most the same quantity, since $A_pa=1/2$ and $2\lambda^i\ge\lambda^{i+1}$. The first definition of $M$ gives $u_0\le a/2=a2^{-\lambda^0}$. Induction proves \eqref{eq:rankdecay} at every rank. Merely exponential decay in the rank would not give the required polynomial dependence on logarithmic precision.
+\end{proof}

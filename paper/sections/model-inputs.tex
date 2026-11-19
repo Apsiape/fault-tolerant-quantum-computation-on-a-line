@@ -1,0 +1,102 @@
+\section{Circuit model and published inputs}\label{sec:model}
+\subsection{Layers, noise and precision}\label{sec:precision}
+A site contains $Q_{\rm site}<\infty$ named qubit factors. An elementary layer is a translated tensor product of disjoint gates of arity at most three, at fixed integer displacements. A finite word of such layers repeats forever. Translation invariance is by one site, with internal port factors distinguishing directions. The elementary inventory is
+\[
+ I,\ X,\ H,\ \CNOT,\ \Toffoli,\ R_0,\ D_Z,
+ \qquad R_0(\rho)=\ket0\bra0\Tr\rho,
+\]
+where $D_Z$ dephases in the computational basis. A discard on an existing slot is a reset. SWAP, Fredkin, $Z$ and $\CZ$ denote fixed decompositions into this inventory. For example $Z=HXH$ and $\CZ=H_{\rm target}\CNOT H_{\rm target}$. Classical control is implemented by these gates on named qubits. There is no intermediate measurement with external feedback.
+
+After every elementary layer, on every wire $q$, independently apply
+\begin{equation}\label{eq:wire-noise}
+ \mathcal N_{p,q}(\rho)=(1-p)\rho+
+ p\,\frac{I_q}{2}\otimes\Tr_q\rho.
+\end{equation}
+The tensor ordering is the original ordering of factors. A reset is followed by this same noise. An idle qubit is also noisy. A primitive key is a wire and elementary layer, with an independent Bernoulli flag of parameter $p$. A flagged replacement can be expanded in arbitrary local operators with the exterior as coefficients. This representation makes the deterministic fault statements below applicable conditional on flags; it does not assert independence of resulting logical faults.
+
+For the second noise model, each site $x$ and layer has one independent flag, and the replacement is
+\begin{equation}\label{eq:site-noise}
+ \mathcal N^{\rm site}_{p,x}(\rho)=(1-p)\rho+
+ p\,\frac{I_x}{2^{Q_{\rm site}}}\otimes\Tr_x\rho.
+\end{equation}
+These are the two conventions of the quantum memory~\cite[Section~2.2]{DMMemory2026}. The whole-site channel discards correlations with the exterior on a hit and replaces all factors by a product maximally mixed state.
+
+The physical request is an integer $h\ge1$ demanding error at most $2^{-h}$. For a rational $\varepsilon$ given by numerator and denominator take $h=\lceil\log_2(1/\varepsilon)\rceil$, computed exactly by integer shifts and comparisons. An integer supplied on its own denotes the demand $2^{-h}$; for a stated tolerance use this canonical choice or the binary-name convention below. For a binary name of $\varepsilon$, read through its leading one and use its position $h'$. Then
+\[
+ 2^{-h'}\le\varepsilon,\qquad
+ \lceil\log_2(1/\varepsilon)\rceil\le h'
+ \le\lceil\log_2(1/\varepsilon)\rceil+1.
+\]
+Only a nonterminating dyadic name can incur the extra one. Preparation and decoding use the same name and hence the same sufficient request; we write $h$ for either choice. This is the chosen input interface. It makes no assertion that a sufficient request cannot be extracted in other approximation models. An unspecified approximation-only real is not an input to these algorithms. The numerical guarantee holds for every real tolerance by choosing a sufficient integer. We use $\TV(P,Q)=\tfrac12\sum_z|P(z)-Q(z)|$ and quantum distance $\tfrac12\|\rho-\sigma\|_1$.
+
+\subsection{The classical structural lane}\label{sec:inputs}
+We fix the classical construction~\cite{DMNoise1D2026} at version~2.0.0 and the quantum memory~\cite{DMMemory2026} at version~3.0.0. No global storage-lifetime theorem is substituted for the local statements below. The native structural lane, denoted $\cR$, uses a fixed certified never-halting family literal, for example a machine whose transition graph has no halting state. The chosen literal is a constant of the fixed rule, rather than an externally supplied reliable control wire. Every physical factor that represents its changing state is subject to \eqref{eq:wire-noise}.
+
+At rank $j$, a home has physical width $P^j$ and a tick has duration $T^j$, with
+\[
+ P=5\,2^w,\qquad T\ge\lfloor3^w/w^2\rfloor,
+ \qquad T\ge P\ge4.
+\]
+The classical word width is $2^j\ell_0$. Only rank zero is physical. The finitely many inequalities specifying a sufficiently large $w$ are those of~\cite[Section~3 and Appendix~A]{DMNoise1D2026}, together with the additional explicit inequalities below. They are decidable polynomial/exponential inequalities and are eventually true.
+
+Here are the precise classical statements used. Sparsity means Definition~4.1 of~\cite{DMNoise1D2026}: a set is $0$-sparse if empty, and is $j$-sparse if in every translate of $w_R[0,P^j)\times[0,T^j)$ one can remove a translate of $3w_R[0,P^{j-1})\times[0,T^{j-1})$ leaving a $(j-1)$-sparse set. Restricted sets are zero outside their restriction. Lemma~4.2 of~\cite{DMNoise1D2026} supplies the deterministic disjoint-child mesh implication: nonsparsity in a doubled rank-$(j+1)$ box forces nonsparsity in two disjoint doubled rank-$j$ candidate boxes, with at most $8(P+2)^2(T+2)^2$ pair choices. We use this deterministic implication, not independence of native flags.
+
+Proposition~5.3 of~\cite{DMNoise1D2026} applies to protected sparse data histories with ordinary unhalted lower ranks and true read-only operands. It gives the proper-live/proper-dead classification, service of a proper-live input, and exact native output on a computing tile from its served input triple; a wholly $(j-1)$-sparse rank-$j$ test has empty rank-$j$ exceptional column. The bound stated after Definition~5.1 of~\cite{DMNoise1D2026} limits served-observation lookahead to $T^j-1$. Lemma~5.18 of~\cite{DMNoise1D2026} gives service of a proper endpoint under its live-hold hypotheses. Lemma~5.24 of~\cite{DMNoise1D2026} states that, in a fully protected $(j-1)$-sparse rank-$j$ two-period test, six consecutive served positive inputs of a common tribe, whose prescribed two central transitions are live with the next residues, give exact service of all lower sites in the two central homes through $[0,2T)$, with the endpoint $2T$ excluded. The six positive inputs, the common tribe, the two live outputs and the requisite work/collar are all supplied here by the initialized clean never-halting tower and by the recursively selected protected tests. No assertion is made about arbitrary high-rank noisy clocks.
+
+Lemma~3.1 of~\cite{DMNoise1D2026} identifies the clean full row, including ordinary address, zero age, exact retained packet and scratch defaults. The proof of its Lemma~6.4 constructs an aligned all-live time-zero boundary: repeatedly divide the coordinate by $P$ using floor division until it is $0$ or $-1$; the next serialized digit is an endpoint whose entire cell is independent of the upper live state. Substitution then computes every finite boundary interval. By~\cite[Section~3.5]{DMNoise1D2026}, the immutable family literal is promoted by extending its word with a blank half and taking one bounded native tape step; its local operations are bounded masks, one-bit shifts and Boolean operations. Section~\ref{sec:finite} accounts for the cost of this computation.
+
+We use the scalar serialization of~\cite[Lemma~13.6]{DMMemory2026}. Each bounded parent scalar bit occupies the low word bit of its own live central-area letter; its other word bits are zero. Parent words use typed low/high halves; live/dead discriminants, field order and fixed endpoint padding remain those of~\cite[Section~3.3]{DMNoise1D2026}. The same serialization is used by encoders, total parsers and evaluators. Lemma~13.6 checks the classical uses separately: whole-letter transport and vote, tag/padding validation, polynomial scalar scans, exact ballot rows and endpoint independence. Thus it applies to this unchanged structural lane. Required age, address and tag bits and the retained word's lowest bit have computable positions independent of rank. The middle of five packet copies is used. During an epoch the packet is the current parent state at that epoch's bottom; retained letters do not change before the ballot. A clean child $\LOAD$ therefore prepares the required clean parent bit, not a bit sampled from an actual noisy parent projection~\cite[Lemma~13.3]{DMMemory2026}.
+\paragraph{Dependent primitive-key witnesses.}
+We use~\cite[Lemma~12.1]{DMMemory2026} with the final circuit's enumerated structural stencils. A native flag at $(x,t)$ is the union of at most $s_R\ge1$ independent elementary flags within spatial and macrodate radii $r_x,r_t$; negative-time native flags are zero. A protected rank-$j$ test has width $<w_RP^j$ and height $<w_RT^j$ and asks for $(j-1)$-sparsity. The lemma gives
+\begin{equation}\label{eq:witness}
+ \Pr(\text{test fails})\le z_{R,j}(p)
+  =[C_Rp^{1/J_R}]^{2^{j-1}},\qquad j\ge1,
+\end{equation}
+with the explicit constants
+\begin{equation}\label{eq:Rconstants}
+\begin{gathered}
+ D_R=8(P+2)^2(T+2)^2,\quad N_R=4(P+3)(T+3),\\
+ A_R=4w_R^2s_R,\quad
+ J_R=(2w_R+4r_x+3)(2w_R+4r_t+3),\\
+ C_R=N_RD_RA_R^{1/J_R},\qquad
+ e_{R0}=A_R^{-1}(2N_RD_R)^{-J_R}.
+\end{gathered}
+\end{equation}
+Here $w_R=w$ is the fixed native structural sparsity parameter, chosen large enough that the protected two-period tests have the stated width and height bounds. The finite collar and work inequalities determining this choice are fixed before noise is chosen. The independent-key assumption is checked on elementary flags, not on compiled native errors. The proof restricts each leaf to all ancestor boxes, chooses at least a $1/J_R$ fraction of disjoint stencil supports, and sums witness trees. Section~\ref{sec:probability} checks the modified period, and the proof of Theorem~\ref{thm:site} gives the site-key form of the same argument.
+
+For~\cite[Lemma~12.5]{DMMemory2026} use the homogeneous never-halting literal, the exact aligned boundary, the total parser of~\cite[Lemma~12.4]{DMMemory2026}, and the scalar layout just specified. Failure of a full physical native symbol or one of its actual control-read bits then implies failure of a deterministic protected test. At each rank there are at most $N_{\rm clk}$ tests with key radii $C_{\rm clk}P^j,C_{\rm clk}T^j$, where
+\begin{equation}\label{eq:clockconstants}
+\begin{gathered}
+ W_* =\left\lceil\frac{2T+18P}{P-1}\right\rceil+2,\quad
+ N_{\rm clk}=W_*+8,\\
+ C_{\rm det}=100(w_R+W_*+T+P+1),\quad
+ C_{\rm clk}=C_{\rm det}+r_x+r_t+2.
+\end{gathered}
+\end{equation}
+The recursion queries date $\lfloor s/T\rfloor-1$ and interval width at most $W/P+2T/P+18$. Its width is bounded by $W_*$ and its date eventually becomes negative. Negative served observations finish before physical zero by the lookahead bound. Under the successful tests the first ballot gives an exact full bottom row, and protected exact evolution gives the desired clean symbol, including scratch; nominal acceptance alone is insufficient. These are the hypotheses and full-symbol conclusion needed here. Lemma~12.6 of~\cite{DMMemory2026} permits ring use only when the output's entire actual past cone is in an injectively embedded interval with that initialized row. Section~\ref{sec:finite} constructs such an interval for the whole computation.
+
+\subsection{Code, gadgets, deletion and cuts}\label{sec:code}
+Fix the particular punctured Reed--Muller CSS family of~\cite[Lemma~5.1]{DMMemory2026}:
+\begin{equation}\label{eq:code}
+ N=2^{2s+1}-1,\qquad q=2^s-1,\qquad [[N,1,2q+1]].
+\end{equation}
+Write $\cC$ for the punctured self-dual evaluation code, $\cD$ for its shortened subcode and $e$ for the all-ones word. Then $\cD=\cC^\perp$, $\cC=\cD\oplus\langle e\rangle$, $e$ has odd weight, and $d(\cC)\ge2q+1$. The logical words are
+\[
+ \ket{d_L}=|\cD|^{-1/2}\sum_{x\in\cD}\ket{x+de},
+ \qquad d\in\{0,1\}.
+\]
+One recovery corrects the entire operator span of weight-at-most-$q$ errors, including reference coefficients. Finite exact real encoding and total syndrome tables exist. Define $a(w)$ to be the coset in $\cC/\cD$ of its unique distance-at-most-$q$ codeword, or zero when there is none. Transversal $X,Z,H,\CNOT,\CZ$ have their logical actions. These statements concern this code family, not arbitrary codes of the same distance.
+
+The complete gadget statement is~\cite[Lemma~5.2]{DMMemory2026}: coherent error correction, deterministic verified zero preparation and complete real-gate bodies exist with one-dimensional routing. Fault-free full error correction maps every input into the code. A correctable input with $f$ coordinate deviations and a complete body with $j$ faulty native gate/wait/reset locations gives at most $8j$ output deviations whenever
+\begin{equation}\label{eq:gadgetmargin}
+ 8(f+j)\le q-8.
+\end{equation}
+The assertion is coefficientwise with arbitrary reference and environment. Its proof shows that the verified preparation $V_q$ with $k\le q$ faults has output in the span of $F\ket{0_L}$ with $\wt(F)\le k$. A transversal $H$ prepares plus; transversal $\CNOT$ then prepares Bell halves. These exact preparations and this real gate inventory are used below. The code and all preparation circuits are fixed before choosing $w$; their very large sizes enter the finite counts.
+
+For a fault budget $b\ge1$,~\cite[Lemma~13.1]{DMMemory2026} assumes $q-8\ge160b+64$, $b+1$ disjoint fresh full error-correction passes on every slot, and a deletion yielding at most $b$ effective native faults. It gives the intended instruction on inputs with at most $9b$ deviations, at most $9b$ output deviations, and a common fixed recursive recovery. Arbitrary inputs first normalize to some logical subsystem; its choice is absorbed into a preceding named bad output before interslot gates. All statements are joint with bad blocks, syndromes and references, with the fixed port-permutation images of named outputs. We use its literal statement for the first complete operation after the leading passes. For later operations of our longer word, Section~\ref{sec:compiler} checks \eqref{eq:gadgetmargin} anew and repeats the joint argument; the old lemma alone is not a statement about our longer list.
+
+The deletion statement~\cite[Lemma~13.2]{DMMemory2026} requires fresh private decisions before every contact, exclusive dummies, complete paired shuttles, the closed tape-end rule and terminal endpoint exchanges followed by no data-dependent contact. It bounds insertions by $K=100000(S+1)^2$ per named child tick, independently of route, tape, list length and rank. Our lists and additional processor ports are different, so Section~\ref{sec:compiler} proves their deletion and lifetime bounds explicitly, including the extra spectator factors and physical initialization pulses. The end-cell rule is built into every level, not imposed only on a clean execution.
+
+The native before-exchange naming and union-cover geometry are~\cite[Lemma~13.4]{DMMemory2026}: a parent is named if the union of three adjacent basic covers has more than $m=19600$ distinct named children. With $h_{\rm cov}=10$ and $b=K(m+1)$ a good parent has at most $b$ effective faults, descendant radii $10P^i,10T^i$, and a bad parent has two named children whose complete descendant footprints have max-norm gap at least $8P^i$. There are at most $(20P+5)(20T+5)$ children in a cover. Our routes preserve these covers; a proof is included below to specify their exact use.
+
+The indexed generator and timetable bounds of~\cite[Lemmas~13.5 and~13.7]{DMMemory2026} are used only with newly enumerated finite lists. They require the fixed private tape machine, tagged calls, rank-independent scalar bit positions, and the end-cell routine included in the tile length. They give exponent $32$, padding exponent $35$, and coefficient $2^{80}D_{\rm desc}^{64}$ from the finite syntactic scan. Section~\ref{sec:compiler} spells out the construction, scan, phase counts and search for the expanded lists. No nominal noise rate, erasure selector, random past, higher-dimensional calendar or forgetting bound is an input to this proof. The one-way classical interface and the fixed recursive recovery are the only relevant interfaces of the memory besides the stated local lemmas.
