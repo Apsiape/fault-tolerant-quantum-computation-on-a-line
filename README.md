@@ -1,6 +1,6 @@
 # Fault-tolerant quantum computation on a line from one fixed translation-invariant rule
 
-Seth Douglas and Nidhal Mghirbi. Preprint, version 1.0.0, November 2026.
+Seth Douglas and Nidhal Mghirbi. Preprint, version 1.0.0, November 2026. [Archive DOI](https://doi.org/10.5281/zenodo.24357734) (all versions); version 1.0.0: [10.5281/zenodo.24357735](https://doi.org/10.5281/zenodo.24357735)
 
 ## Abstract
 
@@ -27,6 +27,6 @@ From `paper/`, run pdfLaTeX three times without shell escape. The tested engine 
 
 ## Citation and license
 
-Douglas, Seth, and Nidhal Mghirbi (2026). *Fault-tolerant quantum computation on a line from one fixed translation-invariant rule*. Version 1.0.0. [Citation metadata](CITATION.cff)
+Douglas, Seth, and Nidhal Mghirbi (2026). *Fault-tolerant quantum computation on a line from one fixed translation-invariant rule*. Version 1.0.0. [Archive DOI](https://doi.org/10.5281/zenodo.24357734) · [Citation metadata](CITATION.cff)
 
 Paper and documentation are licensed under CC BY 4.0. [Licensing details](RIGHTS.md)

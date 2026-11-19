@@ -4,6 +4,7 @@ message: |-
 type: software
 title: "Fault-tolerant quantum computation on a line from one fixed translation-invariant rule"
 version: 1.0.0
+doi: "10.5281/zenodo.24357734"
 date-released: '2026-11-19'
 license: CC-BY-4.0
 authors: [{"family-names": "Douglas", "given-names": "Seth", "orcid": "https://orcid.org/0009-0007-4708-3252"}, {"family-names": "Mghirbi", "given-names": "Nidhal", "orcid": "https://orcid.org/0009-0005-6534-1118"}]
