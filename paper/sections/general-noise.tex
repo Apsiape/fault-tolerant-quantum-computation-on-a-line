@@ -1,0 +1,157 @@
+\section{General local noise on the same circuit}\label{sec:general-noise}
+We now remove the independence and depolarizing-form assumptions without changing the physical word. We use the fault-path convention of D\"unnweber, Styliaris and Trivedi~\cite[Definition~3]{DST2026}. Its superset sum is the established threshold method of Aliferis, Gottesman and Preskill~\cite{AGP2006}; see also Terhal--Burkard~\cite{TB2005} and Aharonov--Kitaev--Preskill~\cite{AKP2006}. The additional work here is a count of dense witnesses for this one-dimensional hierarchy, including overlapping tests of unbounded rank.
+
+\subsection{Noise convention and statement}
+Fix a finite instance and label its elementary gate locations, including waits, by a finite set $U$ of size $N$. One may also specify a fixed bounded number of post-layer noise slots per site and elementary phase, of uniformly bounded arity and spatial diameter; their ideal maps are identities. All these bounds are fixed independently of the computation. A gate fault acts on the same factors as that gate, and a post-layer fault acts on its declared factors. For serially composed slots use their actual order. A shared environment starts independently of the logical input and has no circuit contacts other than at faulty slots.
+
+More generally the implemented CPTP evolution has a linear fault-path expansion $\Phi=\sum_{S\subseteq U}\Phi_S$. A path has ideal circuit operations outside $S$, and arbitrary local circuit--environment superoperators on the declared factors at $S$, or lies in the linear span of such networks. Environment-only evolution is allowed between contacts. The path maps need not be positive or trace preserving. After inserting the fixed environment state and tracing the final environment, assume
+\begin{equation}\label{eq:local-superset}
+ \left\|\sum_{S\supseteq K}\Phi_S\right\|_\diamond
+ \le\eta^{|K|}\qquad(K\subseteq U).
+\end{equation}
+This is a condition on sums with specified faults and all optional faults already summed, not just on individual paths or reduced one-time noise marginals. Composition with our noiseless endpoints preserves the bound. For simultaneous contacts within one layer, the support convention is the same: only the declared local factors couple to the bath, and the path lies in the corresponding local fault span. No serial factorization of the actual layer is required if \eqref{eq:local-superset} holds.
+
+\begin{maintheorem}[General local noise]\label{thm:general}
+For the unchanged circuit of Theorems~\ref{thm:main} and~\ref{thm:quantum}, and any fixed slot bounds above, there is $\eta_0>0$, independent of $n$, $D$, $C$ and $\varepsilon$, such that every CPTP implementation satisfying \eqref{eq:local-superset} with $\eta\le\eta_0$ retains their preparation, decoder, rank choice, stopping time, polynomial resource bound and requested error at most $2^{-h}\le\varepsilon$. In the quantum-input assertion keep the same noiseless recursive endpoints; the estimate holds uniformly with a reference. In particular each ideal elementary CPTP gate $G_u$, including waits, resets and dephasings, may be replaced by an arbitrary CPTP map $E_u$ on its factors with $\|E_u-G_u\|_\diamond\le\eta_0$. Post-layer wire, whole-site or bounded-neighborhood CPTP perturbations within $\eta_0$ of the identity in diamond norm are allowed as well. This includes coherent errors without added depolarization. The threshold is positive but astronomically small.
+\end{maintheorem}
+
+The product case is the specified all-zero-input computation of Theorem~\ref{thm:main}; the quantum case is its reference-entangled input/output extension. We prove a full trace-norm estimate in the former and a diamond-norm estimate for the recovered logical channel in the latter, stronger than the stated distance conventions.
+
+\subsection{Exact recovery on a certified support}
+\begin{lemma}[Replacement span]\label{lem:fault-span}
+Let $F$ be a deterministic finite set of post-layer site keys for which the deterministic good-top conclusion holds in the complete-replacement model. After the fixed recursive recovery the specified product-input output is the ideal pure state, and the quantum-input channel is the ideal unitary channel. The same holds for arbitrary trace-preserving fault networks whose faulty gates have every output factor covered by $F$ at that layer, and for arbitrary errors on the flagged factors. A shared environment with contacts only there is allowed. More generally every linear fault term on this support has recovered output in the one-dimensional span of the specified pure state, or recovered channel in the span of the ideal unitary channel, respectively.
+\end{lemma}
+\begin{proof}
+Complete replacement on a $d$-dimensional factor has Kraus operators $|a\rangle\langle b|/\sqrt d$, spanning its full matrix algebra. For a certified pattern, each recovered Kraus amplitude on the specified pure input lies on the ideal output ray: its positive rank-one contribution is part of a sum supported on that ray. For quantum inputs apply the same argument to a normalized maximally entangled logical input and its untouched reference. Purity of the recovered Choi state implies that every recovered Kraus operator is a scalar multiple of the intended logical unitary, on the entire logical input space. Endpoint Kraus choices include tracing all unused outputs. These are the exact conditional statements of Lemmas~\ref{lem:loading}, \ref{lem:compiled} and~\ref{lem:finite}, not an inference from an approximately correct classical distribution.
+
+This span also covers replacing an ideal gate, including a nonunitary one. If $G_i$ are its Kraus operators and $W$ is any desired operator on its input/output factors, trace preservation gives
+\[
+ W=\sum_i(WG_i^\dagger)G_i.
+\]
+Expand each $WG_i^\dagger$ in the replacement basis on all output factors, and choose identities on extra flagged factors. Apply this to simultaneous tensor products of affected gates. Thus every substituted recovered amplitude belongs to the same ray. Expand joint circuit--environment operators in circuit matrix units with environment coefficients, and contract those coefficients only afterwards. Multilinearity gives the same conclusion for arbitrary correlated contacts on this finite network. Cross terms between any two amplitudes also lie on the same recovered ray; consequently the conclusion holds for arbitrary local linear superoperators and their linear combinations. The logical coefficient is independent of the logical input, by the Choi argument. For an actual CPTP network its coefficient is one by trace preservation. For a linear fault term it need not be one.
+\end{proof}
+
+\subsection{Dense witnesses from the deterministic hierarchy}
+Use max distance in physical site and period date, with bounded elementary phases and key types absorbed in fixed constants. Put $\rho=2^{\log_TP}$, so $1<\lambda\le\rho\le2$ by Section~\ref{sec:probability}.
+\begin{lemma}[Density at every member]\label{lem:dense-witness}
+There are fixed $C\ge1$ and $c>0$ such that a named rank-$i$ query has a nonempty witness $V$ of actually flagged primitive keys satisfying
+\begin{equation}\label{eq:dense-witness}
+ |V\cap B_\infty(u,CT^j)|\ge c\rho^j
+ \quad(u\in V,\ 0\le j\le i).
+\end{equation}
+No independence is assumed. On the finite ring, any fault support that can spoil the recovered answer has such a witness through the chosen rank $k$ in its covered site keys, with circular spatial distance.
+\end{lemma}
+\begin{proof}
+First consider a failed rank-$a$ protected structural test, $a\ge1$. Its rectangle has width $<w_RP^a$ and height $<w_RT^a$ and fails $(a-1)$-sparsity. Iterate the deterministic disjoint-child implication from Section~\ref{sec:inputs}, retaining intersection with every ancestor and the initial test, as in~\cite[Lemma~12.1]{DMMemory2026}. The resulting binary tree has depth $a-1$. At a node of remaining depth $\ell$, its $2^\ell$ nonempty leaf regions are pairwise disjoint and contained in its doubled rank-$\ell$ box. Choose a flagged native point in each leaf and an actual primitive flag in that point's implementing stencil. Distinct native points may choose the same primitive key, but a key belongs to at most a fixed $m_*$ stencils, for example $(2r_x+1)(2r_t+1)$ times the fixed type multiplicity. This subtree supplies at least $2^\ell/m_*$ distinct primitive keys. For each selected key choose a leaf that selected it; the keys below its remaining-depth-$\ell$ ancestor lie within $C_{\rm str}T^\ell$ of it, accounting for both stencil collars and $P\le T$. Hence the union of all selected keys, with duplicates removed, has density at least
+\[
+ c_{\rm str}2^{\min(j,a-1)}\quad\hbox{in radius }C_{\rm str}T^j
+ \quad\hbox{at every member, for every }j\ge0.
+\]
+The keys remain in the full primitive support of this failed test. Restricted leaf regions, rather than possibly overlapping doubled leaf boxes, provide disjointness. A failed direct test has a flagged key and obeys this statement with $a=1$ and $c_{\rm str}\le1$.
+
+Now induct on the quantum naming rank $i$. Maintain also that each chosen key belongs to the full support of an actually failed base test at a descendant base query. At rank zero choose a failed certifying test and its witness. This proves the density assertion at $j=0$ and the additional invariant.
+
+For $i\ge1$, examine all failed tests at descendant base queries in the rank-$i$ footprint of Lemma~\ref{lem:geometry}. If any has index $a$ with $C_*T^a>P^{i-1}$, choose its structural or direct witness. Set $\alpha=\log_TP\le1$ and $K_*=1+\alpha+\log_TC_*$. Then
+\[
+ a-1\ge\alpha i-K_*,\qquad
+ \min(j,a-1)\ge\alpha j-K_*\quad(0\le j\le i).
+\]
+The preceding density gives \eqref{eq:dense-witness} with $c\le c_{\rm str}2^{-K_*}$. This witness may extend beyond the query footprint, but stays in the full support of its failed test, preserving the invariant.
+
+Otherwise every failed test at such a descendant query has its full support within $P^{i-1}$ of that query. The named parent has two named rank-$(i-1)$ children with complete descendant footprints separated by at least $8P^{i-1}$, by Lemma~\ref{lem:geometry}. Inductively chosen keys lie within $P^{i-1}$ of their respective footprints, by the invariant and the present case assumption. Their two witness sets are therefore disjoint. Their union has diameter at most $C_QT^i$ for a fixed $C_Q$, using the parent's footprint and the two collars. For $j<i$ the child containing a chosen member already supplies its density. At $j=i$ its ball contains both sets and hence at least $2c\rho^{i-1}\ge c\rho^i$ members. Taking $C=\max(C_{\rm str},C_Q,1)$ completes the induction and the invariant.
+
+For finite-ring use, take its actual injective chart from Lemma~\ref{lem:finite}. Lift just the prescribed flags in the ordinary replacement-model backward cone to the line; set every other positive line flag, and every negative flag, to zero. If no prescribed top query is named, the deterministic reductions give exactly the recovered ideal answer. The ordinary replacement-model output on the line equals the ring output since its entire circuit cone and initialized row agree in that chart. Only finitely many reductions are needed at this horizon; recursive structural clock queries terminate at negative dates as specified in Section~\ref{sec:inputs}. This uses a pointwise sparse-history implication, not conditioning on a zero-probability infinite clean extension. Lemma~\ref{lem:fault-span} then certifies arbitrary faults on the original ring support, including covered whole-gate faults. Contrapositively an uncertified support names a rank-$k$ top query and supplies the witness just proved. Its lifted keys are distinct ring keys; circular distance can only shorten their spatial distances.
+\end{proof}
+
+Associate each faulty slot with all its post-layer output sites; a post-layer slot marks every site it acts on. A slot targets at most a fixed $g_*$ site keys, within a fixed spatial distance $r_*$ of its slot coordinate. From a site-key witness choose, for each of its keys, a slot in the support targeting it, and let $W$ be the image. For any slot $s\in W$ choose a preimage $u$. The neighbors of $u$ in \eqref{eq:dense-witness} choose slots within radius $CT^j+2r_*$ of $s$, and a slot accounts for at most $g_*$ of those keys. Thus $W$ has the same density form with fixed enlarged $C$ and reduced $c$. The elementary phases have bounded type multiplicity. Consequently a support with no dense slot subset through rank $k$ is certified by Lemma~\ref{lem:fault-span}.
+
+\subsection{Counting all supports in the indicator polynomial}
+\begin{lemma}[Dense-set count and M\"obius coefficients]\label{lem:dense-count}
+Let $U$ consist of $N\ge1$ labeled locations on a ring times integer dates, with boundedly many types at each coordinate. Fix an integer $A_*\ge2$, $1<B_*\le2$, and constants $C,c>0$. Call a nonempty $W$ dense through rank $k$ if every $u\in W$ has at least $cB_*^j$ members of $W$ within max distance $CA_*^j$, for $0\le j\le k$. Write $f(S)=1$ when $S$ contains such a $W$, and zero otherwise. There are fixed $C_1,C_2>0$ such that
+\begin{align}
+ a_K&=\sum_{S\subseteq K}(-1)^{|K|-|S|}f(S),
+ &f(S)&=\sum_{K\subseteq S}a_K,\label{eq:mobius}\\
+ |a_K|&\le2^{|K|},
+ &\#\{K\subseteq U:K\text{ dense},\ |K|=m\}
+ &\le\bigl[C_1(2N)^{C_2/B_*^k}\bigr]^m.\label{eq:dense-count}
+\end{align}
+Here $a_\varnothing=0$; $a_K\ne0$ implies that $K$ itself is dense and $|K|\ge cB_*^k$.
+\end{lemma}
+\begin{proof}
+The inversion follows by cancellation of the interior alternating sum unless its subset equals $S$. The coefficient bound is immediate. If some $u\in K$ belongs to no dense subset of $K$, then $f(S\cup\{u\})=f(S)$ for every $S\subseteq K\setminus\{u\}$, so the terms for $a_K$ cancel in pairs. Otherwise every member has a dense witness within $K$, and hence $K$ itself satisfies all the density inequalities. At rank $k$ these force $|K|\ge cB_*^k$.
+
+Cut the ring at a fixed origin and use ordinary coordinates $0,\ldots,L-1$. Partition space and date into nested grid squares of side $A_*^j$, $0\le j\le k$, clipping to the coordinate domain if necessary. For each occupied square at level $j$ choose one representative in $K$. Its circular ball contains at least $cB_*^j$ keys of $K$. Conversely any particular key belongs to balls of representatives from at most a fixed $d_C$ squares: its circular spatial neighborhood is at most two intervals of length $2CA_*^j+1$, or the whole shorter ring, and its temporal neighborhood is one such interval. These meet only boundedly many grid squares. Double counting gives at most $d_Cm/(cB_*^j)$ occupied squares at level $j$.
+
+There are at most $N$ possible occupied top squares, since each must contain a location of $U$. At most $q=d_Cm/(cB_*^k)\ge1$ are selected, so summing binomial bounds gives at most $(2N)^{2q}$ choices. Each occupied square at level $j\ge1$ has at most $A_*^2$ child slots; choosing the occupied slots costs at most $2^{A_*^2}$. The total number of such parent decisions is at most
+\[
+ \frac{d_C}{c}m\sum_{j=1}^k B_*^{-j}
+ \le\frac{d_C}{c(B_*-1)}m.
+\]
+At level zero there are boundedly many labels per coordinate, so choosing labels costs another fixed constant to the power $m$. This nested encoding specifies every $K$ and proves \eqref{eq:dense-count}, with constants independent of $N,k$ and the ring length.
+\end{proof}
+
+\subsection{Superset summation and the factor of two}
+\begin{proof}[Proof of Theorem~\ref{thm:general}]
+Use Lemma~\ref{lem:dense-count} for slots with $A_*=T$, $B_*=\rho$ and the constants obtained from the site-to-slot witness. Compose each $\Phi_S$ with the prescribed preparation and recovery, obtaining $M_S$. In the product case regard $M_S$ as the resulting output operator; in the quantum case it is a logical linear map. Whenever $f(S)=0$, Lemma~\ref{lem:fault-span} puts $M_S$ in the span of the ideal output, or the ideal channel $\mathcal U_C$, respectively. This includes the empty support. Such terms need not vanish and need not be normalized.
+
+To handle their normalization explicitly, in the product case put $P(X)=\rho_{\rm ideal}\Tr X$. In the channel case choose any fixed logical density matrix $\tau$ and put
+\[
+ P(\Gamma)=\mathcal U_C\,\Tr[\Gamma(\tau)].
+\]
+Both projections have norm at most one, in trace norm or diamond norm as appropriate, since $|\Tr\Gamma(\tau)|\le\|\Gamma\|_\diamond$. Hence $\|I-P\|\le2$. They fix every certified linear term. The actual recovered output has trace one, or is a trace-preserving channel, so its projection is the ideal answer. Therefore its deviation $\Delta_{\rm log}$ obeys
+\begin{equation}\label{eq:factor-two}
+ \Delta_{\rm log}
+ =(I-P)\sum_S f(S)M_S,\qquad
+ \|\Delta_{\rm log}\|\le2\left\|\sum_S f(S)M_S\right\|.
+\end{equation}
+Faulty terms without a dense witness have the correct logical ray but may carry a nonunit trace coefficient. The projection accounts for their normalization at a cost of at most two, without assuming termwise trace preservation or that nonempty good paths vanish.
+
+Insert \eqref{eq:mobius} and sum all optional faults first:
+\[
+ \sum_S f(S)M_S
+ =\sum_{K\subseteq U}a_K\sum_{S\supseteq K}M_S.
+\]
+No independence is used. Contractivity of the endpoints and \eqref{eq:local-superset} give $\|\sum_{S\supseteq K}M_S\|\le\eta^{|K|}$. Using \eqref{eq:dense-count} yields
+\begin{equation}\label{eq:coherent-series}
+ \|\Delta_{\rm log}\|\le
+ 2\sum_{m\ge\lceil c\rho^k\rceil}
+ \bigl[2C_1\eta(2N)^{C_2/\rho^k}\bigr]^m.
+\end{equation}
+Taking absolute values of individual paths before the superset sum would introduce an exponential circuit-volume factor and does not prove this bound.
+
+There is a fixed $c_0$ with $N\le c_0Lt$. The unchanged formulas of Lemma~\ref{lem:finite} give
+\[
+ t=VT^k,\quad
+ L\le(2n+4V+23)P^k+2Rt+2(h+1),\quad
+ h+\lceil\log_2W\rceil+1\le\lambda^k,
+\]
+where $W=(V+1)(n+2V+9)$ and $P\le T$. Thus fixed constants satisfy
+\[
+ \log(2N)\le c_1[1+\log W+\log(1+h)+k]
+ \le c_N\rho^k.
+\]
+For the last inequality use $n,V\le W$, $\log(1+h)\le h$, $\lambda\le\rho$, and boundedness of $k/\rho^k$. Natural logarithms are used here. Set
+\begin{equation}\label{eq:general-threshold}
+ \eta_0=\frac{\min\{1/2,\ 2^{-3/c}\}}
+ {2C_1\exp(C_2c_N)}>0.
+\end{equation}
+The series base in \eqref{eq:coherent-series} is then at most $\theta=\min\{1/2,2^{-3/c}\}$. Since $\rho^k\ge\lambda^k\ge h+1$, its sum is at most
+\[
+ 4\theta^{c\rho^k}\le4\,2^{-3\rho^k}\le2^{-h}.
+\]
+This includes the factor of two in \eqref{eq:factor-two}. Measuring the recovered product output gives the original classical law by the full-space effect identity of Lemma~\ref{lem:readout}. Measurement and the half-trace-distance convention only decrease the asserted error. All resources and input/output maps are unchanged. The fixed constants in the stencil, density and grid bounds make \eqref{eq:general-threshold} astronomically small; no practical threshold estimate is claimed.
+\end{proof}
+
+\subsection{Local CPTP errors and simultaneous bath interactions}
+For serial local CPTP replacements write $\Delta_u=E_u-G_u$ and expand the circuit multilinearly. The sum with every location in $K$ faulty is the contracted circuit with $\Delta_u$ on $K$ and actual CPTP maps elsewhere. Submultiplicativity and CPTP diamond norm one give \eqref{eq:local-superset}. This proves the claimed arbitrary local perturbation case, including coherent overrotations and errors in reset. It also covers a shared bath if, in a specified serial order, the actual joint map at $u$ is within $\eta$ of $G_u\otimes B_u$ in joint diamond norm for an environment-only CPTP map $B_u$. Merely bounding reduced one-time marginals is insufficient.
+
+The proof above uses only the local support span and \eqref{eq:local-superset}, so it also covers simultaneous Hamiltonian--bath contacts within a layer. One sufficient strength condition can be seen directly. In a dilation of the ideal disjoint gates, including private environments for nonunitary gates, let the additional Hamiltonian be $\sum_u H_u(s)$, with each term coupling only the factors of location $u$ and the shared bath during its layer. Arbitrary bath-only evolution is included in the ideal dynamics. Suppose
+\[
+ 2\int_{\text{layer of }u}\|H_u(s)\|\,ds\le\eta
+ \quad\hbox{for every }u.
+\]
+Group the time-ordered expansion by the set of interaction labels that occur. These are local fault-span paths; disjoint ideal gate supports in a layer allow each affected support to be covered at that layer's output. To bound their superset sum, multiply $H_u$ by $z_u\in[0,1]$. The mixed finite difference in variables $z_u$, $u\in K$, with all other variables set to one, is exactly the sum over paths containing $K$. Express it as the integral of the mixed derivative over $[0,1]^K$. Duhamel's formula inserts each superoperator $-i[H_u(s),\cdot]$ once, summing all insertion orders. The intervening propagators remain CPTP for every interpolated Hamiltonian, and the inserted superoperator has diamond norm at most $2\|H_u(s)\|$. The ordered integration regions partition the product of the insertion-time intervals. Consequently the sum has norm at most
+\[
+ \prod_{u\in K}2\int\|H_u(s)\|\,ds\le\eta^{|K|}.
+\]
+The same argument applies across layers and survives the final environment trace. No ordering of the simultaneous physical bath contacts is imposed. This supplies \eqref{eq:local-superset} in a familiar Hamiltonian case; the theorem's hypothesis is the superset bound itself.

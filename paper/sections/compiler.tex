@@ -169,7 +169,7 @@ The choice order is $S,d$, then $K,m,b$, then the code and finite lists, then $U
 \end{proof}
 
 \begin{lemma}[The joint one-rank channel]\label{lem:compiled}
-On good parents the expanded compiler reduces to $g\otimes U$ followed by $E$, with at most $9b$ residual coordinate deviations per slot. At named bad parents it permits an arbitrary joint operation on the named slots and their fixed port images. The same fixed recovery and input/output type can be used through any finite hierarchy. At date zero the product-loading boundary of Lemma~\ref{lem:loading} is valid anew at every reduced rank.
+For the declared covers, cut types and fault budgets of Lemmas~\ref{lem:loading} and~\ref{lem:deletion}--\ref{lem:timetable}, and the structural-read oracle invariant that every unmarked physical read and every good reduced $\LOAD$ supplies the corresponding bit of the clean retained letter at the epoch bottom, the expanded compiler on good parents reduces to $g\otimes U$ followed by $E$, with at most $9b$ residual coordinate deviations per slot. At named bad parents it permits an arbitrary joint operation on the named slots and their fixed port images. The same fixed recovery and input/output type can be used through any finite hierarchy. At date zero the product-loading boundary of Lemma~\ref{lem:loading} is valid anew at every reduced rank.
 \end{lemma}
 \begin{proof}
 By Lemmas~\ref{lem:deletion} and~\ref{lem:geometry}, a good parent has at most $Km<b$ effective native faults in its declared list, including waits and terminal transport. The teleportation chain normalizes arbitrary input or loads the required basis value as in Lemma~\ref{lem:loading}. There are then $b+1$ ordinary full error-correction passes on every slot with fresh/reset work. The first complete operation satisfies the literal hypotheses of~\cite[Lemma~13.1]{DMMemory2026}: the particular code, \eqref{eq:codemargin}, disjoint passes, deletion budget and declared common cut are all present.
@@ -180,7 +180,76 @@ For every later complete semantic operation, use~\cite[Lemma~5.2]{DMMemory2026} 
 \end{equation}
 The next operation leaves at most $8j\le8b$ deviations. Terminal waits add at most $b$, restoring $9b$. This induction applies to every primitive of $U$ as its own complete error-correction/body, including logical resets of head work. A block entering partway through $U$ is an ordinary input to that complete operation; no assumption treats all of $U$ as one primitive.
 
-For arbitrary incoming faulty logical data, its clean normalizer first selects code support before interslot gates. Expand shared errors in matrix bases on good block factors, retaining bad blocks, syndromes and reference in common coefficients. Each term has the intended logical map and the same correctable output span; complementary projections have zero expectation on the positive joint output, so the joint state lies in the tensor product of those spans. In the fixed recovery coordinates the good logical map has a common environment coefficient, also on off-diagonal logical matrix elements. An entangling gate with a bad operand means that intended gate on its actual recovered bad input. The local normalizer of a preceding bad output is absorbed into that named arbitrary channel before the next interslot gate. It has no additional good logical input. Thus this absorption introduces no new named wire. The terminal permutation merely permutes logical names and syndromes. Since $9b\le q$, one recovery corrects the union span, rather than selecting a recovery depending on the fault history.
+\paragraph{Recovery coordinates and the joint identity.}
+Let $V:\mathbb C^2\to(\mathbb C^2)^{\otimes N}$ be the fixed encoder. For every full stabilizer syndrome $\sigma$ choose the Pauli leader $T_\sigma$ of the total recovery in Lemma~\ref{lem:readout}, including its fixed choices outside the correctable region. The unitary change of coordinates $W$ is defined by
+\[
+ W T_\sigma V\ket a=\ket a_L\otimes\ket\sigma_S,
+ \qquad a=0,1.
+\]
+The syndrome sectors are orthogonal and exhaust the block Hilbert space, so this defines $W$ everywhere, not merely on code support. The physical recovery is $\Tr_S\circ\operatorname{Ad}_W$. For every operator $F$ in the weight-at-most-$q$ error span there is a syndrome vector $v_F$, independent of $a$, such that
+\begin{equation}\label{eq:recoverycoordinates}
+ WF V\ket a=\ket a\otimes v_F .
+\end{equation}
+Indeed expand $F$ in Paulis. In each syndrome its low-weight representative differs from $T_\sigma$ by a scalar stabilizer on the code: the product has weight at most $2q<2q+1$ and cannot be a nontrivial logical Pauli. This proves the formula for a Pauli and then by linearity for its whole span. The tensor-product version holds with every exterior operator as coefficient. For $0\le f\le q$, let $S_f$ be the span of the vectors obtained from errors of weight at most $f$. A good complete operation needs only $L\otimes S_{10b}$ at its incoming cut, by the preceding wait allowance; its output is in $L\otimes S_{9b}$. Both lie in the recoverable space $L\otimes S_q$. Syndrome coefficients are arbitrary within the specified incoming space; all syndrome sectors are allowed without restriction on named bad slots.
+
+Fix one complete semantic operation, including its ECs and charged waits, and first take a unitary native body $G$. Use $W$ on each input/output slot. Let $B$ collect every exterior bad slot and let $Z$ collect reference, unused factors and retained environment. Expand a joint faulty Stinespring operator in local matrix bases on its charged factors, and label the resulting terms by $\alpha$. The coefficientwise conclusion of~\cite[Lemma~5.2, final proof paragraph]{DMMemory2026}, applied with \eqref{eq:88b}, says that each term sends a correctable input to its ideal logical image with correctable output errors, with a coefficient independent of every logical amplitude. In the above coordinates this is precisely
+\begin{equation}\label{eq:cutkraus}
+ \widehat K_\alpha(\ket{\boldsymbol a}\otimes\ket s\otimes\eta)
+   =G\ket{\boldsymbol a}\otimes A_\alpha(\ket s\otimes\eta),
+ \quad \ket s\in S_{10b}^{\otimes r},\quad \eta\in B\otimes Z.
+\end{equation}
+Here $r$ is the number of participating slots and $\widehat K_\alpha$ includes the fixed input/output coordinate changes; $A_\alpha$ may act jointly on all syndromes, bad slots and environment. One can read $A_\alpha$ directly by expanding the residual operators $F$ and using \eqref{eq:recoverycoordinates}: their vectors $v_F$ replace the residual physical errors. Independence of $\boldsymbol a$ is the coefficientwise gadget assertion, not an inference from correctable output support alone.
+
+Retain coherent cross terms before tracing fault records. For arbitrary logical matrix units, syndrome matrix units in the allowed span, and arbitrary $Y\in\mathcal B(B\otimes Z)$, \eqref{eq:cutkraus} gives the operator identity
+\begin{equation}\label{eq:jointcut}
+\begin{split}
+ &\widehat K_\alpha
+ (|\boldsymbol a\rangle\langle\boldsymbol a'|
+       \otimes|s\rangle\langle s'|\otimes Y)
+ \widehat K_\beta^\dagger\\
+ &\quad =
+ G|\boldsymbol a\rangle\langle\boldsymbol a'|G^\dagger
+ \otimes A_\alpha(|s\rangle\langle s'|\otimes Y)A_\beta^\dagger .
+\end{split}
+\end{equation}
+This includes $\boldsymbol a\ne\boldsymbol a'$ and $s\ne s'$ and does not diagonalize $Y$. Summing the prescribed coherent coefficients, or summing Kraus branches after tracing their records, gives
+\[
+ \widehat{\mathcal G}(X)
+   =(\operatorname{Ad}_G\otimes\Lambda)(X)
+ \quad\hbox{on }\mathcal B(L^{\otimes r}\otimes S_{10b}^{\otimes r}\otimes B\otimes Z).
+\]
+The retained coefficient map $\Lambda$ is independent of the logical matrix indices. The actual full circuit is trace preserving; individual fault-expansion terms need not be. Thus no termwise normalization or independence of faults is asserted. Tracing syndromes proves the logical channel equality with an arbitrary reference.
+
+For a native preparation/reset, take fresh verified output work and discard the old logical input as the ideal instruction specifies. Equivalently dilate the ideal reset by $\ket a\mapsto\ket0\otimes\ket a_{\rm discard}$, apply the same coefficientwise argument while retaining this prescribed discard, and trace it at disposal. On logical matrix units the trace is $\Tr(|a\rangle\langle a'|)=\delta_{a,a'}$, giving the reset channel in place of $\operatorname{Ad}_G$. Its new output is the required logical basis value. The discard is not subsequently read by any instruction. The other slots obey \eqref{eq:jointcut} unchanged. This treats the nonunitary native inventory as well as gates.
+
+\paragraph{Arbitrary inputs and support of a named map.}
+The identity just proved concerns valid correctable inputs. On a completely arbitrary block a clean private normalizer instead has Kraus operators $Vn_\gamma$, for some maps $n_\gamma$ from that entire block to its logical qubit, since its output has code support. Put $\mathcal N(X)=\sum_\gamma n_\gamma Xn_\gamma^\dagger$. This is a total channel, with no claimed prescribed logical value outside the correctable input type. On a correctable input, the Bell identity of Lemma~\ref{lem:teleport} gives $n_\gamma W^\dagger(\ket a\otimes\ket s)=c_{\gamma s}\ket a$; hence its version of \eqref{eq:jointcut} is identity on the logical subsystem. On the classical input-value line it gives the fixed output $\ket{d_L}$, coefficientwise, as proved there.
+
+Suppose the incoming arbitrary block is a preceding named output on a set $B_0$, with joint map $\mathcal F_{B_0Z}$. Before any subsequent interslot gate its normalization is therefore absorbed as the concrete composition
+\begin{equation}\label{eq:badabsorb}
+ (\Id_{L_{\rm good}}\otimes\mathcal N_{B_0}\otimes\Id_Z)
+ (\Id_{L_{\rm good}}\otimes\mathcal F_{B_0Z})
+ =
+ \Id_{L_{\rm good}}\otimes
+ [(\mathcal N_{B_0}\otimes\Id_Z)\circ\mathcal F_{B_0Z}].
+\end{equation}
+Any syndrome coefficients of good slots are included in $Z$; \eqref{eq:jointcut} has already factored out their logical factors. Thus \eqref{eq:badabsorb} is an equality on all matrix units even when those factors are entangled. The composition reads no additional good logical factor. The clean pass on each slot can have a different date, because all such passes precede the interslot body. Faults before that slot's clean pass belong to its selecting map; the subsequent passes obey the $5b$, then $9b$, allowance of Lemma~\ref{lem:loading}. This proves the arbitrary-input case separately from the valid-code case. An intended gate with an operand selected this way is the intended gate on that actual selected logical input.
+
+A named bad native tick is an arbitrary joint channel on that site's declared slots, placed before $E$. If $B_0$ denotes those named factors, its post-exchange support is exactly $E(B_0)$:
+\[
+ \operatorname{Ad}_E\circ(\mathcal F_{B_0Z}\otimes\Id_{B_0^c})
+ =
+ (\mathcal F^{\,E}_{E(B_0)Z}\otimes\Id_{E(B_0)^c})
+ \circ\operatorname{Ad}_E .
+\]
+Every ordinary slot stays at its site; each right or left port factor goes to its facing factor at the neighboring site. The terminal routes implement just this permutation by Lemma~\ref{lem:deletion}, restoring intermediate transport. Hence there is no unnamed intermediate output in the support. An arbitrary bad child compiler/user joint map retains both sets of factors in its common coefficient; the spectator argument in deletion introduces no additional compiler contact.
+
+\paragraph{Rank zero and the induction.}
+At rank zero condition on primitive flags. Off the direct stencils all physical gates, resets, waits, exchanges and pulse actions in the base query are their declared operations on the actual input. Lemma~\ref{lem:clockinterface} and \eqref{eq:rawcover} certify every actual unmarked raw opcode/low-bit read. On marked queries allow the entire joint operation on the named site slots before $E$, with its port images. This is the cut assertion at the physical inventory, with no encoding assumption. The flag set is independent of all quantum inputs.
+
+Assume this joint cut assertion for rank $i$, as an equality on matrix units with arbitrary syndrome, bad-slot and reference coefficients. Deleting a rank-$(i+1)$ good parent's child routines gives at most $Km<b$ faulty native locations by Lemmas~\ref{lem:deletion} and~\ref{lem:geometry}. At positive dates every unmarked incoming slot is in the $9b$-correctable type, and every remaining slot is a named arbitrary output. Normalize the latter by \eqref{eq:badabsorb}; apply \eqref{eq:jointcut} to each complete semantic operation in its circuit order, using \eqref{eq:88b} each time; and carry the final $9b$ errors through the one fixed recovery by \eqref{eq:recoverycoordinates}. Keep named maps in their circuit order rather than commuting them through an intended entangling gate. Apply the displayed port identity at the terminal exchange. These steps give exactly the same joint cut assertion at rank $i+1$. A bad parent is itself an arbitrary named native map on that same inventory. Since at most $9b\le q$ child-coordinate operators remain in a good output block, their union span is corrected by that fixed table; the table never depends on the history.
+
+There are two date-zero cases. For the product mode the recursive substitution places each classical bit on the repeated word $\ket d^{\otimes N}$, with arbitrary joint coefficients allowed on already named outputs. Lemma~\ref{lem:teleport}'s classical clause and the $b+1$ private passes select $\ket{d_L}$ before any interslot body. Reducing one rank therefore gives exactly the prescribed repeated-bit input row for the next reduction, with named maps where needed; this uses no higher-rank correctability premise for a product word. Physical pulses implement precisely that row from zero quantum slots. For the quantum-endpoint mode the recursive encoder instead supplies $V$ at every initial block; its logical matrix units satisfy \eqref{eq:recoverycoordinates} with zero syndrome. The quantum clause of the normalizer preserves those units and their arbitrary reference coefficients, and the physical pulse values are zero. Repeating these respective date-zero arguments at each reduction rank, followed by the positive-date induction just given, proves the assertion for both input types through any finite hierarchy.
 
 At the base, direct physical stencils and the structural tests certify actual raw opcode reads; Lemma~\ref{lem:clockinterface} verifies that assertion for this completed period. At rank $i+1$, each good reduced child $\LOAD$ supplies the low bit of its clean rank-$i$ retained letter. The packet linkage of Section~\ref{sec:inputs} supplies exactly the parent age/address/tags and retained bit at their fixed positions, referring to the parent state at the epoch's bottom. A bad child $\LOAD$ is already a named fault and its influence is charged to its one pending contact by deletion. The indexed private program therefore selects the intended clean reference $g$, independently of actual noisy parent projections. Child user evolution is a disjoint spectator; the encoded parent user factors are protected compiler tokens.
 

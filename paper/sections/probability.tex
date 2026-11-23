@@ -12,7 +12,34 @@ with total defaults on unused intermediate Boolean strings. Evaluate on private 
 
 Enumerate that stencil on the completed elementary word: each incoming bank's storage from its preceding completed write through its last relevant read, one-way fanout copies and their storage, every parser/evaluator gate, old/new transfers, all resets and noise immediately after them, private targets until read, and each raw source bit through its actual quantum-control read. Include incoming period $t-1$ and outgoing period $t$ to cover both the transition into native date $t$ and all reads at that date. At zero keep only nonnegative elementary keys. All displacements and the layer count are fixed, so its maximal key count $s_R$ and integer radii $r_x,r_t$ are finite computable constants. Added layers only add the required wait keys; no stencil from a shorter old period is reused without them. Any decoded disagreement from the native transition thus requires a stencil flag. Corruption into a different legal word and into a non-codeword are both covered.
 
-The physical processor reads exactly old age, address, retained low bit and required tags, each through a private copy. $U$, pulse bits and Bell records read no structural bank. A wrong canonical native symbol has a protected test by~\cite[Lemma~12.5]{DMMemory2026}, whose initialized, homogeneous, ordinary unhalted, serialization and protection hypotheses were checked in Section~\ref{sec:inputs}. If instead a raw bank or copy is noncanonical, or a raw bit is wrong even though the parser agrees, the complete write/storage/read stencil has a flag. The prescribed rank-one protected test containing that point then fails $0$-sparsity. Retain this fixed-offset raw-read test explicitly among the $N_{\rm clk}$ tests. These alternatives exhaust every raw read; the parser is not presumed to govern malformed raw quantum controls.
+The physical processor reads exactly old age, address, retained low bit and required tags, each through a private copy. $U$, pulse bits and Bell records read no structural bank. For a base query $q=(x,t)$, enumerate these actual reads by their named source factor and elementary read layer. Let $\mathcal L(q)$ be this finite list. For $\ell\in\mathcal L(q)$ let $\Sigma_\ell(q)$ consist of the source's implementing write, its storage since that write, the one-way copy gates and storage, and the actual control gate with its following noise. Include the incoming/outgoing periods and clip negative elementary times exactly as above. The enumeration defining $\Sigma_R(q)$ takes the union over this entire list, not a separate native flag for each bit or copy. Hence
+\begin{equation}\label{eq:rawstencil}
+ \bigcup_{\ell\in\mathcal L(q)}\Sigma_\ell(q)
+ \subseteq\Sigma_R(q),\qquad
+ E_R(q)=\one[\text{a flag in }\Sigma_R(q)] .
+\end{equation}
+A source for an exchanged port is charged at its before-$E$ origin; the opposite origin has its own base query. Private opcode-decision arithmetic and its transported result are in the direct test, not additional reads of a structural bank. This exhausts the read categories in the declared physical word.
+
+Here is one dominating protected rank-one test, with its dimensions explicit. Put $m_R=\lfloor w_R/5\rfloor$, $k=\lfloor x/P\rfloor$ and $h_0=\lfloor t/T\rfloor$. Take the $W_0$ of~\cite[Lemma~5.24]{DMNoise1D2026} with central homes $k,k+1$ and work period $h_0$, including its seed, work and lower-call collars. Denote it $W_{\rm raw}(q)$. It contains $q$. That lemma's actual stencil inclusion is
+\[
+ W_{\rm raw}(q)\subset
+ [k-m_R-3,k+m_R+5)P
+ \times[h_0-m_R-2,h_0+m_R+1)T.
+\]
+Its width is at most $(2m_R+8)P<w_RP$ and its height at most $(2m_R+3)T<w_RT$; the structural choice of $w_R$ satisfies $w_R\ge20$, since the classical source fixes $w\ge10^{10}$ globally. The complete primitive support is the union of $\Sigma_R(y)$ over nonnegative native points $y$ of this test. It has at most
+\[
+ (2m_R+8)(2m_R+3)PTs_R
+\]
+keys. Relative to $q$, its spatial and macrodate radii are at most $(m_R+6)P+r_x$ and $(m_R+4)T+r_t$, respectively, both bounded by $C_{\rm clk}P,C_{\rm clk}T$ in \eqref{eq:clockconstants}. Clipping at physical zero only decreases these bounds. Define $F_{\rm raw}(q)$ to be failure of $0$-sparsity of $E_R$ restricted to this test.
+
+If the parsed full symbol is wrong, the initialized projection's tests certify that event. If the parsed symbol agrees with the clean one but any actual raw bank/copy/control bit disagrees with its canonical value, a flagged write/storage/copy/read key is necessary. By \eqref{eq:rawstencil} this implies $E_R(q)=1$, and $q\in W_{\rm raw}(q)$ implies $F_{\rm raw}(q)$. Thus, pointwise in the primitive flags,
+\begin{equation}\label{eq:rawcover}
+ \{\text{some wrong raw read at }q\}
+ \subseteq
+ \bigcup_{j\ge1}\bigcup_{\nu\le N_{\rm clk}}F_{j,\nu}(q)
+ \ \cup\ F_{\rm raw}(q).
+\end{equation}
+All reads in $\mathcal L(q)$ use the same added test. Consequently the largest number of extra tests after this deterministic covering is $B_{\rm raw}=1$. No replacement of an imported test or spare capacity in $N_{\rm clk}$ is assumed. The dimension bounds permit \eqref{eq:witness} at $j=1$ for this test. The parser is not presumed to govern malformed raw quantum controls.
 
 At each period boundary the retained banks are dephased, with joint state $\sum_a\ket a\bra a\otimes\rho_a$. Their truth-table updates are basis permutations or total classical channels. A bank is only a source for a one-way control into private work. Tracing targets after a controlled unitary or a copy-and-discard does not change the bank probabilities, even with arbitrary $\rho_a$. A flagged depolarization of a basis-valued bit is a replacement by a private independent fair bit. Induction over elementary layers therefore gives exactly an autonomous classical stochastic chain. No quantum factor, private result, Bell record or pulse writes back to its banks. The current construction has no terminal erase acting on them. Private read copies are consumed by disposable work and their faults are in the same read/dispatch or direct stencils.
 
@@ -24,7 +51,7 @@ For each physical site/tick take a direct test consisting of all primitive keys 
 Fix the following constants after this physical enumeration, taking maxima of key counts and radii for the wire and whole-site conventions:
 \begin{equation}\label{eq:probconstants}
 \begin{gathered}
- N_t=N_{\rm clk}+1,\quad C_* =\max(1,C_{\rm clk},r_H),\\
+ B_{\rm raw}=1,\qquad N_t=N_{\rm clk}+B_{\rm raw}+1,\quad C_* =\max(1,C_{\rm clk},r_H),\\
  A_p=A_0^2,\quad a=\frac1{2A_p},\quad D_*=1058N_tPT,\\
  \lambda=1+\frac1{2T},\qquad \rho=2^{\log_T P},\\
  M=\max\left\{\left\lceil\log_2\frac{4N_t}{a}\right\rceil,
@@ -37,7 +64,7 @@ All radii are rounded upward to integers. The common threshold is
  p_0=\min\left\{\frac12,\frac{2^{-M}}{\max(1,s_H)},\ e_{R0},\
  A_R^{-1}\left(\frac{2^{-M}}{N_RD_R}\right)^{J_R}\right\}>0.
 \end{equation}
-The last term already implies the $e_{R0}$ condition because $2^{-M}\le1/2$; it is displayed to retain the witness hypothesis explicitly. All constants depend only on the completed fixed circuit. They are not chosen anew at each rank.
+The last term already implies the $e_{R0}$ condition because $2^{-M}\le1/2$; it is displayed to retain the witness hypothesis explicitly. The enlarged $N_t$ is used in $D_*$, both terms of $M$, and hence in $p_0$; no earlier numerical threshold is retained. All constants depend only on the completed fixed circuit. They are not chosen anew at each rank.
 
 \begin{lemma}[Decay of named-site probabilities]\label{lem:probability}
 Initialize the structural lane on the line as above. Mark a base query if its direct test or one of its protected structural tests fails, and use \eqref{eq:naming} at higher ranks. For every $0\le p\le p_0$, if $u_i$ is the supremum probability of a named rank-$i$ query, then
@@ -49,7 +76,7 @@ The marking event is a function only of primitive flags, independent of the circ
 \begin{proof}
 Independent elementary wire flags and private fair bits for classical replacements realize \eqref{eq:wire-noise} exactly. Lemma~\ref{lem:clockinterface} checks every hypothesis of the independent-key and initialized structural projection imports on the present word, with the unchanged literal, total parser, one-way banks and date-zero row. Negative native flags are zero. Include all keys since a preceding write through its actual read, rather than treating a stored classical bit as freshly noisy only when read. Every wrong read is therefore certified. Tests depend on flags alone.
 
-By \eqref{eq:threshold}, direct tests have probability at most $2^{-M}$. By \eqref{eq:witness} and the last threshold term, a rank-$j$ structural test has probability at most $2^{-M2^{j-1}}$. At each query there are at most $N_t$ tests per rank $j\ge1$, putting direct tests at rank one, with full primitive supports inside radius $C_*T^j$ since $T\ge P$. A query can be marked by remote tests, but the certification is pointwise: one need not paint a failed test's entire rectangle into the base error set. Extend negative time by empty physical-error tests for geometric counting. Summing the doubly decreasing tail gives
+By \eqref{eq:threshold}, direct tests have probability at most $2^{-M}$. By \eqref{eq:witness} and the last threshold term, a rank-$j$ structural test has probability at most $2^{-M2^{j-1}}$. At each query there are at most $N_t=N_{\rm clk}+B_{\rm raw}+1$ tests per rank $j\ge1$: the $N_{\rm clk}$ imported projection tests, the one dominating raw-read test only at rank one, and the direct test only at rank one. The added test has the probability and support bounds proved in \eqref{eq:rawcover}; thus all these tests satisfy the common rank bounds, with full primitive supports inside radius $C_*T^j$ since $T\ge P$. A query can be marked by remote tests, but the certification is pointwise: one need not paint a failed test's entire rectangle into the base error set. Extend negative time by empty physical-error tests for geometric counting. Summing the doubly decreasing tail gives
 \begin{equation}\label{eq:recurrence}
 \begin{split}
  u_0&\le2N_t2^{-M},\\

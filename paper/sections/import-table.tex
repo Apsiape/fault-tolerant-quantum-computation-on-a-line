@@ -1,0 +1,42 @@
+\appendix
+\section{Versioned local inputs}\label{sec:imports}
+In this table C denotes the classical source~\cite{DMNoise1D2026}, version~2.1.0, doi:10.5281/zenodo.24408026; M denotes the quantum-memory source~\cite{DMMemory2026}, version~3.1.0, doi:10.5281/zenodo.24431439. The listed statements and indicated proof passages are present in these versions with the hypotheses and conclusions used here. The classical statements are applied to the fixed-rate homogeneous never-halting family, not the searching single-rule noise diagram. The scalar-layout change is justified by M, Lemma~13.6. Expanded compiler lists and the additional raw-read count are proved in this paper; they are not asserted to be verbatim conclusions about the older hardware.
+
+\begingroup
+\small
+\setlength{\tabcolsep}{4pt}
+\renewcommand{\arraystretch}{1.12}
+\begin{longtable}{@{}>{\raggedright\arraybackslash}p{.22\textwidth}>{\raggedright\arraybackslash}p{.31\textwidth}>{\raggedright\arraybackslash}p{.42\textwidth}@{}}
+\toprule
+Source and locator & Required hypothesis & Matching use here\\
+\midrule
+\endfirsthead
+\toprule
+Source and locator & Required hypothesis & Matching use here\\
+\midrule
+\endhead
+\bottomrule
+\endfoot
+C, Section 3, Lemma 3.1 & Aligned occupied input; true addressed operands. & Complete clean row, addresses, age, packet and structural/scratch values; Sections 2.2, 5, 6.\\
+C, Sections 3.2, 3.3, 3.5; Appendix A & Large w; typed packets; true immutable family literal. & Period, packet format, literal promotion and terminating search; Sections 2.2, 5.3, 7.\\
+C, Section 4.1, Definition 4.1 and Lemma 4.2 & Restricted sets zero outside; deterministic mesh. & Sparsity and disjoint-child implication, with pair count $8(P+2)^2(T+2)^2$; Section 2.2 and site-witness proof.\\
+C, Section 5, Definition 5.1 and following bound & Same-origin nominal/served queries; service date below T. & Lookahead $T^j-1$ and negative terminal queries; Sections 2.2, 6.\\
+C, Section 5, Proposition 5.3 & Protected sparse history; ordinary unhalted lower ranks; true operands. & Classification, service, native issue, empty exception in a wholly $(j-1)$-sparse test; Sections 2.2, 6.\\
+C, Section 5.5, Lemma 5.18 and full-home specialization & Proper live start; prescribed live holds; protected lower calls. & Endpoint/full-home service including live ballots; structural descent, Section 2.2.\\
+C, Section 5.6, Lemma 5.24 & Six served live inputs, common tribe, two live central transitions; full $W_0$; $(j-1)$-sparsity. & Two-period service excluding $2T$; full row in proof; actual raw-test dimensions, Section 6.\\
+C, Section 6.4, Lemma 6.4 and proof & Homogeneous never-halting fixed-rate family; aligned row. & Clean negative tower, deterministic boundary, endpoint substitution; Sections 2.2, 6, 7.\\
+M, Section 2.2 & Independent wire/layer or site/layer replacement. & Both noise conventions, Section 2.1; no native iid assumption.\\
+M, Section 5.1, Lemma 5.1 and proof & Particular punctured self-dual Reed--Muller CSS family. & One total recovery for the weight-q union span; exact real tables/logical words; Sections 2.3, 3.3.\\
+M, Section 5.2, Lemma 5.2; preparation and final operator proof paragraphs & Native faults with arbitrary joint coefficients; $8(f+j)\le q-8$. & Verified $V_q$: at most k deviations for $k\le q$; normalization; 8j residual errors and coefficientwise action; Sections 2.3, 3, 5.4.\\
+M, Section 12, Lemma 12.1 & Independent primitive keys; finite stencils; zero negative flags; test dimensions. & Dependent-key witness constants, Sections 2.2, 6; site proof supplied in Theorem C.\\
+M, Section 12, Lemma 12.4 & Total parser, final period, one-way dephased banks, exact row, scalar layout. & Four interface clauses; expanded-word check, Lemma 6.1. Extra raw count is proved here.\\
+M, Section 12, Lemma 12.5 and decoded-symbol proof & Never-halting homogeneous family on line; exact row; protected two-period tests. & Full-symbol projection, $W_*$, $N_{\rm clk}$, radii and recursion; Section 2.2. Raw budget proved in Section 6.\\
+M, Section 12, Lemma 12.6 & Injective initialized interval with entire actual past cone; one line coupling. & Effective boundary and exact finite-ring use; Section 7.\\
+M, Section 13, Lemma 13.1 & Particular code; $q-8\ge160b+64$; b+1 fresh ECs, deletion, common cuts. & First complete operation, 9b cut type, arbitrary-input normalization; longer-list joint proof given in Section 5.4.\\
+M, Section 13, Lemma 13.2 & Fresh private decisions, dummies, paired shuttles, closed tape ends, terminal exchange. & Deletion pattern and K; expanded-list/spectator proof in Lemma 5.1.\\
+M, Section 13, Lemma 13.3 & Clean tower, scalar layout, base raw reads, packet held to ballot. & Low-bit linkage and clean-oracle invariant; Sections 2.2, 5.4.\\
+M, Section 13, Lemma 13.4 & Before-E naming; full three-cover union; $T\ge P\ge4$. & Budgets, radii, separated pair; exact expanded geometry reproved in Lemma 5.2.\\
+M, Section 13, Lemmas 13.5 and 13.7 & Finite lists; private tagged tape; end-cell tile; constants before w. & Exponents 32/35, syntactic coefficient, timetable; expanded-list bounds proved in Lemma 5.3.\\
+M, Section 13, Lemma 13.6 & Low-word-bit scalar layout; typed halves; endpoint padding; same total parser. & Classical serialization checks and rank-independent positions; Section 2.2.\\
+\end{longtable}
+\endgroup

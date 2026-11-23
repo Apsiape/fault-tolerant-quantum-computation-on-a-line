@@ -1,0 +1,35 @@
+\section{One fixed discrete update and its storage horizon}\label{sec:fixed-channel}
+This section is an elementary register-bank consequence of Theorem~\ref{thm:main} and its endpoint and site-noise extensions. It retains the noise after every original elementary layer. It does not remove a noiseless timing structure.
+
+\begin{corollary}[One fixed channel]\label{cor:fixed-channel}
+There is one fixed finite-range CPTP update $\mathcal K$, translation-invariant by one site, on a fixed finite register at each site, applied identically at every discrete step, that gives the computation and polynomial resource conclusions of Theorem~\ref{thm:main}. Independent wire replacement, or independent replacement of an entire enlarged site, acts after every application of $\mathcal K$ at any rate up to the common $p_0$. The quantum-input conclusion of Theorem~\ref{thm:quantum} holds with its noiseless endpoints.
+
+For some fixed $a_{\rm mem}>0$ and every sufficiently large ring size $L$, the same update stores a qubit entangled with an untouched reference through every integer time $0\le m\le\lfloor a_{\rm mem}L\rfloor$. A one-time noiseless encoder and a time-dependent noiseless CPTP readout, both independent of the noise rate, give recovered Bell fidelity at least $15/16$ throughout that interval. They also preserve an arbitrary input qubit and reference to trace distance at most $1/16$ on this interval. Nothing is claimed after the horizon.
+
+The onsite bank shift in this construction is one ideal gate on $D_{\rm layer}Q_{\rm site}$ qubits at once. Noise inside a decomposition of that gate is not covered by this corollary. Like the original noiseless schedule, the shift is a noiseless timing structure.
+\end{corollary}
+\begin{proof}
+Write the fixed elementary word as $G_0,\ldots,G_{d-1}$, where $d=D_{\rm layer}$ and each bank contains $Q_{\rm site}$ qubits per site. At every site install $d$ named banks indexed by $r$ modulo $d$. In parallel apply layer $G_r$ across bank $r$, for every $r$, then perform the same onsite tensor-factor permutation $r\mapsto r+1$. Their composition is $\mathcal K$. Its range and the number of stages specifying it are fixed; it commutes with translation by one site. No initialized phase counter or step-dependent choice of channel is used.
+
+Put the original preparation in bank zero and fill the remaining banks with zeros. After $m$ steps the designated stream is in bank $m\bmod d$. Its joint marginal with the reference is exactly that of the original first $m$ noisy elementary layers. Indeed the parallel channels on traced-out banks preserve the identity in the adjoint, so only $G_{m\bmod d}$ acts on the designated marginal, and the permutation merely renames its factors. Independent wire noise restricts to exactly the original wire noise. For enlarged-site replacement, condition on the independent site-hit set at the present step. Tracing unused banks at a hit leaves the original site's maximally mixed register with its input discarded, tensor the exterior marginal. This is exactly the old whole-site replacement. The hit sets are independent across steps, so induction applies even when previous site hits correlated banks. Leave the reference untouched throughout.
+
+At time $dt$, bank zero therefore has the original output. Apply the original decoder for computation, or the recursive quantum recovery for quantum inputs. The number of sites is unchanged, the local register has the fixed factor $d$, and the time in updates is $d$ times the number of periods, preserving the polynomial resource conclusion. The extra banks contain no copies of an unknown input. This proves the fixed-channel computation assertion directly from Theorems~\ref{thm:main}--\ref{thm:site}.
+
+For storage choose $n=1$, target depth zero and the identity circuit in Theorem~\ref{thm:quantum}. Then $V=30$ and $W=31\cdot70$ are fixed. For requests $h\ge1$, let $k(h),t(h),L_h$ be precisely \eqref{eq:rankchoice}--\eqref{eq:chart}. Since $P\le T$ and $1<\lambda<T$, there is a fixed $C_{\rm mem}$ with
+\[
+ L_h\le C_{\rm mem}t(h),\qquad L_h\ge2Rt(h),\qquad
+ L_h\longrightarrow\infty.
+\]
+Here $P^{k(h)}\le t(h)/30$ and $h\le\lambda^{k(h)}\le T^{k(h)}$ prove the upper bound; the cone term proves the lower bound. For all sufficiently large $h$, consecutive powers of $\lambda$ differ by more than one, so increasing $h$ by one raises $k$ by at most one. Hence $t(h+1)\le Tt(h)$ eventually.
+
+For any sufficiently large $L$, take $h$ immediately before the first index $h'$ with $L_{h'}>L$. This first crossing exists and gives
+\[
+ L_h\le L<L_{h+1}\le C_{\rm mem}t(h+1)
+ \le C_{\rm mem}Tt(h).
+\]
+No monotonicity of $L_h$ is needed. Also $h\to\infty$ as $L\to\infty$. Keep this $h$'s initialized chart on the larger ring and put filler outside it. The full replacement-model backward cone remains in the injective chart of Lemma~\ref{lem:finite}, so its original conditional good-support conclusion and probability bound still hold. Enlarging the ring changes no designated marginal. The bank construction thus has a declared endpoint at $dt(h)\ge dL/(C_{\rm mem}T)$ updates.
+
+At any integer $m\le dt(h)$, read out by applying the remaining \emph{ideal} $\mathcal K$ updates to that endpoint and then the original recovery on bank zero. This is one CPTP readout depending only on $L,h,m$ and the known hardware; it does not act during storage or depend on the unknown input or actual noise rate. Keep the actual flags before $m$ and set all later flags to zero. Coupling them to full-horizon independent flags gives a subset of that full support. The naming and bad-top events are increasing in flags, so every certified full pattern also certifies this thinned one. Lemma~\ref{lem:fault-span}, or the original deterministic conditional recovery, makes its recovered identity output exact. Bad patterns have probability at most $2^{-h}$. Thus the recovered joint state is the ideal input/reference state with weight at least $1-2^{-h}$ plus an arbitrary state of the remaining weight. For a Bell input its overlap with the Bell state is at least $1-2^{-h}$; for every input/reference state its trace distance from that state is at most $2^{-h}$.
+
+Choose, for example, $a_{\rm mem}=d/(2C_{\rm mem}T)$ and take $L$ sufficiently large that the chosen $h\ge4$. This gives the claimed $15/16$ fidelity and $1/16$ trace-distance bounds at every allowed read time, under either original noise convention. It proves a finite interval, with no assertion at later times. Finally the whole bank permutation was treated as one noiseless onsite gate before the prescribed noise; the proof includes no faults within a finer decomposition of it.
+\end{proof}

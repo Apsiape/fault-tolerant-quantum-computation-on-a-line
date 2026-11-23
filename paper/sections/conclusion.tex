@@ -14,7 +14,7 @@ Use the hardware, threshold $p_0$, noise, request $h$, chart and stopping time $
  -(C\otimes I_R)\rho_{AR}(C^\dagger\otimes I_R)\right\|_1
  \le2^{-h}\le\varepsilon.
 \end{equation}
-The resource bound \eqref{eq:resource} holds unchanged. The endpoint encoder and recovery are independent of $p$. The recovery is a quantum operation and need not be a classical measurement decoder.
+The bound in equation~\eqref{eq:resource} holds for the ring size $L$ and the number $t$ of noisy periods between the noiseless endpoints. The endpoint encoder and recovery are independent of $p$. The recovery is a quantum operation and need not be a classical measurement decoder.
 \end{maintheorem}
 \begin{proof}
 Place $\rho_{AR}$ on the top stationary data slots $1,\ldots,n$ and prescribe the same top program, head, ports and workspace as before. Apply the exact noiseless CSS encoder recursively to every designated slot, including the known program and head, with fresh child workspace. Embed this entire encoded input and the structural row in the chart of Lemma~\ref{lem:finite}. Initialize every physical pulse bit to zero. Its clean action is now identity even at the first period. Faults at later resets, storage or reads still have the physical direct certificates, so no threshold or stencil is removed.
@@ -44,3 +44,5 @@ Every other independence assertion in Lemma~\ref{lem:probability} is between dis
 
 Conditional hits can act jointly on compiler and user factors, but their expansion with common environment coefficients is exactly the arbitrary joint fault expansion used in deletion. The spectator case adds no clean contact between them. Thus the same good-parent budget, loading, complete-operation margins, total measurement effects and full-horizon chart all apply. The good-event probability is input independent and at least $1-2^{-h}$. Its classical output mixture proves Theorem~\ref{thm:main} under this noise, and its recovered joint quantum mixture proves Theorem~\ref{thm:quantum} in trace distance. This proves the assertion with a single hardware choice and a single positive threshold.
 \end{proof}
+
+The following sections add two consequences within explicit scopes. Theorem~\ref{thm:general} keeps this physical word and polynomial resources under general sufficiently weak local fault-path noise, including coherent perturbations. Corollary~\ref{cor:fixed-channel} implements its elementary layers by identical banked updates and gives reference-entangled storage through a horizon linear in ring size. Its ideal onsite bank shift remains a noiseless timing structure, and no storage claim is made after that horizon.

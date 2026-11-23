@@ -2,8 +2,8 @@
   "title": "Fault-tolerant quantum computation on a line from one fixed translation-invariant rule",
   "upload_type": "publication",
   "publication_type": "preprint",
-  "version": "1.0.0",
-  "publication_date": "2026-11-19",
+  "version": "1.1.0",
+  "publication_date": "2026-11-22",
   "creators": [
     {
       "name": "Douglas, Seth",
@@ -14,17 +14,18 @@
       "orcid": "0009-0005-6534-1118"
     }
   ],
-  "description": "One fixed, finite-range, translation-invariant, time-periodic quantum circuit on a ring performs any width-n, depth-D Toffoli/Hadamard circuit from a computable product preparation, with space and time at most A(n+D+log2(1/ε))^A and output error at most ε. The register per site and A are fixed. Independent depolarizing noise acts on every wire after every elementary layer, including every classical control wire, at any rate below a fixed positive threshold. The target circuit enters only through classical basis registers; all quantum registers start in zero. A deterministic classical decoder, depending only on n,D and a sufficient integer precision request, reads the final computational-basis measurement. A serial quantum processor is embedded in an initialized one-dimensional classical self-simulating hierarchy. Coordinatewise private teleportation corrections load repeated classical words without assuming that they are quantum codewords, and a closed tape-end rule confines faulty instruction decisions to one contact. With noiseless recursive encoding and recovery at the endpoints, the same circuit preserves arbitrary input entanglement with a reference. Independent whole-site replacement has a common positive threshold on the same hardware. This is a one-dimensional analogue of the two-dimensional construction of Dünnweber, Styliaris and Trivedi, following their suggested route through Gács's one-dimensional hierarchy. Our overhead is polynomial rather than polylogarithmic. The hierarchy is initialized and synchronous; the constants are extremely large.",
+  "description": "One fixed finite-range, translation-invariant, time-periodic quantum circuit on a one-dimensional ring samples the computational-basis output of any width-n, depth-D Toffoli/Hadamard circuit on the all-zero input within total variation error ε. The ring size and number of periods are at most A(n+D+log₂(1/ε))^A for a fixed A, and the per-site register is fixed. The polynomial-time computable product preparation puts the program in classical basis registers and initializes all quantum registers to zero; a deterministic polynomial-time classical decoder uses only n, D and a sufficient integer precision request. Independent wire depolarization or whole-site replacement acts after every elementary layer, including on classical control, below a fixed positive threshold. Theorem D extends the accuracy and polynomial resource bounds to sufficiently small general local fault-path noise, including coherent errors and correlated bath interactions satisfying a fault-path superset bound. Its threshold is positive but astronomically small. The proof combines exact recovery on certified supports, multiscale dense-witness counting for overlapping long tests, and the established fault-path superset method. Noiseless recursive encoding and recovery give the corresponding reference-entangled input/output guarantee. An elementary register-bank corollary replaces the periodic word by one fixed channel at every step, preserves noise after every original layer, and stores a reference-entangled qubit with fidelity at least 15/16 through a horizon linear in ring size. Its ideal onsite bank shift is a noiseless timing structure; noise within a decomposition of that shift and times beyond the horizon are not covered. The construction follows the one-dimensional route proposed by Dünnweber, Styliaris and Trivedi for their two-dimensional construction, which already treats general local fault-path noise with polylogarithmic overhead. Our overhead is polynomial, with very large constants and an initialized synchronous hierarchy.",
   "keywords": [
     "quantum fault tolerance",
     "translation-invariant quantum circuits",
     "one-dimensional quantum computation",
     "noisy classical control",
     "self-simulating cellular automata",
-    "quantum cellular automata"
+    "quantum cellular automata",
+    "coherent errors"
   ],
   "access_right": "open",
   "license": "cc-by-4.0",
   "language": "eng",
-  "notes": "Preprint. Version 1.0.0. Not formalized in Lean. Text: CC BY 4.0."
+  "notes": "Preprint. Version 1.1.0. Not formalized in Lean. Text: CC BY 4.0."
 }

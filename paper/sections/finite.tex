@@ -15,12 +15,12 @@ Let $R\ge1$ be one plus the sum over elementary layers of the greatest pairwise 
  L=(2m_c+1)P^k+2(h+1).
 \end{gathered}
 \end{equation}
-There is a product initialization on this ring giving total variation error at most $2^{-h}$. It and the decoder are computable in polynomial time in their finite input and output sizes. Their geometry, selected output slots and time depend only on $n,D,h$. With
+Under the independent wire noise of equation~\eqref{eq:wire-noise} for $0\le p\le p_0$, with $p_0$ as in equation~\eqref{eq:threshold}, there is a product initialization on this ring giving total variation error at most $2^{-h}$. It and the decoder are computable in polynomial time in their finite input and output sizes. Their geometry, selected output slots and time depend only on $n,D,h$. With
 \begin{equation}\label{eq:A}
  g=\lceil\log_\lambda T\rceil,\qquad
  A=\left\lceil(300+150R)T25^g\right\rceil+g+10,
 \end{equation}
-the resource bound \eqref{eq:resource} holds. The same bad-event bound is valid in trace distance after quantum recovery for a recursively encoded input with reference.
+the resource bound \eqref{eq:resource} holds. The same bad-event bound is valid in trace distance after noiseless recursive recovery for a recursively encoded input with reference.
 \end{lemma}
 \begin{proof}
 On every top date $0,\ldots,V$, use the interval $[-V-3,n+V+3]$. It contains the full ideal top past cone for stationary output sites $1,\ldots,n$, including origins of exchanged ports and all needed initial stream positions. There are at most $W$ queries, with date $V$ included for safety. The noise after the last elementary layer of physical period $VT^k-1$ belongs to that period's direct test, hence to top date $V-1$; there is no untested terminal noise layer. Lemma~\ref{lem:probability} and a union bound give failure probability at most
