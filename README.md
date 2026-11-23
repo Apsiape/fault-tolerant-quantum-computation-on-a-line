@@ -1,6 +1,6 @@
 # Fault-tolerant quantum computation on a line from one fixed translation-invariant rule
 
-Seth Douglas and Nidhal Mghirbi. Preprint, version 1.1.0, November 2026. [Archive DOI](https://doi.org/10.5281/zenodo.24357734) (all versions); version 1.0.0: [10.5281/zenodo.24357735](https://doi.org/10.5281/zenodo.24357735); version 1.1.0: to be assigned
+Seth Douglas and Nidhal Mghirbi. Preprint, version 1.1.0, November 2026. [Archive DOI](https://doi.org/10.5281/zenodo.24357734) (all versions); version 1.0.0: [10.5281/zenodo.24357735](https://doi.org/10.5281/zenodo.24357735); version 1.1.0: [10.5281/zenodo.24453268](https://doi.org/10.5281/zenodo.24453268)
 
 ## Abstract
 
